@@ -11,3 +11,10 @@ Oppmøte: Alle
 * Inviterte alle
 * Fikk forket LibGDX skjelett
 * Delegert roller
+
+
+### Møte 13.02.2024:
+
+Oppmøte: Viktor, Karsten, Marius, Tommy, Runar
+
+*Satt mål til neste møte: Alle skal sette seg inn i LibGDX Framework
