@@ -17,6 +17,14 @@ Spillfigur som kan styres – gå til høyre/venstre, hoppe oppover
 * Spilleren kan samle poeng ved å plukke opp ting
 * Utfordringen i spillet er: å bevege seg gjennom terrenget uten å falle utfor, å samle nok poeng, å bekjempe fiendene, å nå frem til målet 
 
+### Brukarhistorier
+
+1. Som ein spelar vil eg at nivået endrar seg estetisk etter kvart som eg kjem lenger inn i nivået.
+2. Som ein spelar vil eg at nivået byr på nye/større utfordingar etter kvart som eg kjem meg vidare.
+3. Som programmerer vil eg at det skal vere enkelt å legge til fleire fiendar med ulike egenskapar, og endre/legge til nivå.
+4. Som spelar vil eg at spelet skal vere lett å komme igong med.
+5. Som spelar vil eg at eg kan bevege meg unna fiendar.
+6. Som spelar vil eg at tilstandsendringar skal vere synlege, som t.d. skade mottatt, powerups osv.
 
 ### Organisering
 
@@ -28,7 +36,7 @@ Git mester                  *Karsten*
 
 Loggførar av møter          *Borgar*
 
-Møter blir organisert etter behov.
+Møter blir organisert etter behov. Foreløpig tatt kvar tirsdag som standard. 
 Kommunikasjon ellers skjer på discord. 
 
 ## Dersom det er anbefalt at vi har andre/fleire roller sett vi pris på å bli opplyst om dette
