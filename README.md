@@ -1,18 +1,19 @@
-# INF112 Project – *Kurt-Mario in the Land of the Mushroom Princess*
+# INF112 Project – *Platformer*
 
-* Team: *De hundre tollerne* (Gruppe 5): *Ole-Per Javasen, Jon-Jan Gitland, Nils-Katrine Mavensen, Birgitte-Ingrid C. Sharpee*
+* Team: *Snille menn* (Gruppe 4): *Runar, Karsten, Tommy, Viktor, Marius, Borgar*
 * Lenke til GitLab/Trello/etc.
 
 ## Om spillet
-*«Kurt-Mario er i trøbbel igjen! Han er sent ute til eksamen, han har ikke lest nok – og hvor er egentlig eksamenslokalet? Hjelp Kurt-Mario å hoppe fra etasje til etasje på Høyteknologisenteret, plukke opp viktig kunnskap (og snacks!) på veien og nå frem til eksamen i tide. Men pass opp for de skumle professorene – vi har ikke tid til å høre om flere teoremer nå!»*
+*«Geir-Roger har veldig lyst på dame, men det er bare ett problem. Han tar informasjonsteknologi! (Hvor er damene?!)*
+*Finn roser, sjokolade og Starbucks latte for å rømme fra realfagsbygget og finne en ekte dame. Og hugs, ikke bli lurt av falske damer!»*
 
 ## Kjøring
 * Kompileres med `mvn package`.
-* Kjøres med `java -jar target/kurt-mario-1.0-SNAPSHOT-fat.jar`
+* Kjøres med `java -jar target/Geir-Roger-1.0-SNAPSHOT-fat.jar`
 * Krever Java 21 eller senere
 
 ## Kjente feil
-Kurt-Mario blir *mindre* – ikke større – når han spiser sopp fra Nygårdsparken.
+Geir-Roger eksisterer ikke.
 
 ## Credits
-Tileset fra https://opengameart.org/content/2d-cave-platformer-tileset-16x16
+Snille menn
