@@ -26,3 +26,15 @@ Oppmøte: Viktor, Karsten, Marius, Tommy
 * Satt struktur på prosjektet, og komt lenger på prosjekt konsept.
 * Early-Early Access versjon!
 * Planlagt discord møte i morgen, skal delegere roller.
+
+### Møte 21.02.2024:
+
+Oppmøte: Viktor, Karsten, Marius, Tommy, Runar, Borgar
+
+* Møte via discord
+* Delegert arbeidsområder til neste gruppetime
+* Karsten - Shop
+* Borgar - Playermodel/animations
+* Viktor - Map
+* Marius - Menu
+* Runar/Tommy - Fysikk
