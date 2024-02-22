@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
-
+import static inf112.skeleton.helper.Constants.width;
+import static inf112.skeleton.helper.Constants.height;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -10,7 +11,8 @@ public class Main {
         cfg.setIdleFPS(60);
         cfg.useVsync(true);
         cfg.setTitle("hello-world");
-        cfg.setWindowedMode(1980, 1080);
+        cfg.setWindowedMode(width, height);
+        
 
         new Lwjgl3Application(new HelloWorld(), cfg);
     }

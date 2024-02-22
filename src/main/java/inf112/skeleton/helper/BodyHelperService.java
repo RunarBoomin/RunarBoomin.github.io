@@ -17,7 +17,7 @@ public class BodyHelperService {
         bodyDef.position.set(x/ PPM, y/ PPM);
         bodyDef.fixedRotation = true;
         Body body = world.createBody(bodyDef);
-
+        
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
@@ -27,5 +27,6 @@ public class BodyHelperService {
         body.createFixture(fixtureDef);
         shape.dispose();
         return body;
+        
     }
 }

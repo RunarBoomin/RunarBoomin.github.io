@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 
 import inf112.skeleton.app.GameScreen;
@@ -23,14 +24,16 @@ import inf112.skeleton.objects.player.Player;
 public class TileMapHelper {
     private TiledMap tiledMap;
     private GameScreen gameScreen;
-
+    private String filename;
     
-    public TileMapHelper(GameScreen gameScreen){
+    public TileMapHelper(GameScreen gameScreen, String filename){
         this.gameScreen = gameScreen;
+        this.filename = filename;
     }
 
     public OrthogonalTiledMapRenderer setupMap(){
-        tiledMap = new TmxMapLoader().load("maps/map0.tmx");
+        clearWorldBodies();
+        tiledMap = new TmxMapLoader().load(filename);
         parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
@@ -58,6 +61,9 @@ public class TileMapHelper {
 
                     gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
                 }
+
+                
+
             }
         }
     }
@@ -68,6 +74,7 @@ public class TileMapHelper {
         Body body = gameScreen.getWorld().createBody(bodyDef);
         Shape shape = createPolygonShape(polygonMapObject);
         body.createFixture(shape, 1000);
+        
     }
 
     private Shape createPolygonShape(PolygonMapObject polygonMapObject){
@@ -82,6 +89,17 @@ public class TileMapHelper {
         PolygonShape shape = new PolygonShape();
         shape.set(worldVertices);
         return shape;
+    }
+
+    private void clearWorldBodies() {
+        Array<Body> bodies = new Array<Body>();
+        gameScreen.getWorld().getBodies(bodies);
+        
+        for (Body body : bodies) {
+            // Check if the body is not the player body    
+            gameScreen.getWorld().destroyBody(body);
+            
+        }
     }
 
 }
