@@ -39,3 +39,14 @@ Oppmøte: Viktor, Karsten, Marius, Tommy, Runar, Borgar
 * Marius - Menu
 * Runar/Tommy - Fysikk
 
+<<<<<<< HEAD
+=======
+### Møte 05.03.2024:
+
+Oppmøte: Viktor, Karsten, Marius, Tommy, Runar, Borgar
+
+* Møte via discord
+* Ble enig om å sette fremtidige møter på discord, hvis ingenting annet blir nevnt
+* Samlet oss og viste frem progresjonen vår på arbeidsområdene
+* Diskuterte hva vi skulle fokusere på videre
+>>>>>>> 4dbb607c528f3ebb117b2cbc579601e8ccc6f39f

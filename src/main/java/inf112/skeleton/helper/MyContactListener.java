@@ -6,10 +6,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-import inf112.skeleton.objects.player.Player;
+
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
-import inf112.skeleton.states.PauseState;
+
 
 
 // Define a contact listener class
@@ -25,8 +25,7 @@ public class MyContactListener implements ContactListener {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
 
-/*         fixtureA.setUserData("ground");
-        fixtureB.setUserData("player"); */
+
 
         
         // Check if fixtureA or fixtureB is the player's fixture

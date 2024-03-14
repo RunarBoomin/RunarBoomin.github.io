@@ -101,7 +101,7 @@ public class PlayState extends State{
         orthogonalTiledMapRenderer.render();
         batch.begin();
 
-        batch.draw(playerTexture, player.getx() - player.getWidth()/2, player.gety() - player.getHeight()/2, player.getWidth(), player.getHeight());
+        //batch.draw(playerTexture, player.getx() - player.getWidth()/2, player.gety() - player.getHeight()/2, player.getWidth(), player.getHeight());
         // render objects
         font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), cam.position.x - (width/2 ) + 50, cam.position.y + (height/2) - 50);
         batch.end();
