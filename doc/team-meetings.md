@@ -38,3 +38,4 @@ Oppmøte: Viktor, Karsten, Marius, Tommy, Runar, Borgar
 * Viktor - Map
 * Marius - Menu
 * Runar/Tommy - Fysikk
+

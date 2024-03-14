@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class GameEntity {
-    protected float x, y, velX, velY, speed;
+    protected float x, y;
+    public float velX;
+    protected float velY;
+    protected float speed;
     protected float width, height;
     protected Body body;
 

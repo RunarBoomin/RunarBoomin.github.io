@@ -8,26 +8,26 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 
-import inf112.skeleton.app.GameScreen;
 import inf112.skeleton.objects.player.Player;
+import inf112.skeleton.states.PlayState;
 public class TileMapHelper {
     private TiledMap tiledMap;
-    private GameScreen gameScreen;
+    private PlayState playstate;
     private String filename;
     
-    public TileMapHelper(GameScreen gameScreen, String filename){
-        this.gameScreen = gameScreen;
+    public TileMapHelper(PlayState playstate, String filename){
+        this.playstate = playstate;
         this.filename = filename;
     }
 
@@ -40,11 +40,12 @@ public class TileMapHelper {
 
     private void parseMapObjects(MapObjects mapObjects){
         for(MapObject mapObject : mapObjects){
-
+            
             if(mapObject instanceof PolygonMapObject){
-                createStaticBody((PolygonMapObject) mapObject);
+               
+                createStaticBody((PolygonMapObject) mapObject, mapObject.getName());
             }
-
+            
             if(mapObject instanceof RectangleMapObject){
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
                 String rectangleName = mapObject.getName();
@@ -56,24 +57,25 @@ public class TileMapHelper {
                         rectangle.getWidth(), 
                         rectangle.getHeight(), 
                         false, 
-                        gameScreen.getWorld()
+                        playstate.getWorld()
                     );
 
-                    gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+                    playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
                 }
-
-                
-
             }
+            
         }
     }
 
-    private void createStaticBody(PolygonMapObject polygonMapObject){
+    private void createStaticBody(PolygonMapObject polygonMapObject, String userData){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        Body body = gameScreen.getWorld().createBody(bodyDef);
+        Body body = playstate.getWorld().createBody(bodyDef);
         Shape shape = createPolygonShape(polygonMapObject);
-        body.createFixture(shape, 1000);
+        Fixture fixture = body.createFixture(shape, 1000);
+    
+        // Set the user data for the fixture to "ground"
+        fixture.setUserData(userData);
         
     }
 
@@ -93,11 +95,11 @@ public class TileMapHelper {
 
     private void clearWorldBodies() {
         Array<Body> bodies = new Array<Body>();
-        gameScreen.getWorld().getBodies(bodies);
+        playstate.getWorld().getBodies(bodies);
         
         for (Body body : bodies) {
             // Check if the body is not the player body    
-            gameScreen.getWorld().destroyBody(body);
+            playstate.getWorld().destroyBody(body);
             
         }
     }
