@@ -50,3 +50,20 @@ Oppmøte: Viktor, Karsten, Marius, Tommy, Runar, Borgar
 * Samlet oss og viste frem progresjonen vår på arbeidsområdene
 * Diskuterte hva vi skulle fokusere på videre
 >>>>>>> 4dbb607c528f3ebb117b2cbc579601e8ccc6f39f
+
+
+### Møte 12.03.2024
+
+Oppmøte: Marius, Runar, Tommy, Karsten, Borgar
+
+*Møte digitalt
+*Gjekk gjennom aribeidsoppgaver
+*Diskuterte forbedringsområder
+*Avtalte møte 14.03
+
+## Møte 14.03.2024
+
+Oppmøte: Marius, Runar, Tommy, Karsten
+
+*Møte digitalt
+*Gjekk gjennom det vi har jobba med sidan sist
