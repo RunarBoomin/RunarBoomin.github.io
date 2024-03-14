@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.objects.player.Enemy;
 import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.states.PlayState;
 public class TileMapHelper {
@@ -45,6 +46,8 @@ public class TileMapHelper {
                
                 createStaticBody((PolygonMapObject) mapObject, mapObject.getName());
             }
+
+            
             
             if(mapObject instanceof RectangleMapObject){
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
@@ -62,10 +65,25 @@ public class TileMapHelper {
 
                     playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
                 }
+
+                if(rectangleName != null && rectangleName.equals("enemy")){
+                    Body body = BodyHelperService.createBody(
+                        rectangle.getX() + rectangle.getWidth() / 2,
+                        rectangle.getY() + rectangle.getHeight()/2, 
+                        rectangle.getWidth(), 
+                        rectangle.getHeight(), 
+                        false, 
+                        playstate.getWorld()
+                    );
+
+                    playstate.setEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
+                }
             }
             
         }
     }
+
+
 
     private void createStaticBody(PolygonMapObject polygonMapObject, String userData){
         BodyDef bodyDef = new BodyDef();

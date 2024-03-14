@@ -31,6 +31,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.helper.MyContactListener;
 import inf112.skeleton.helper.TileMapHelper;
+import inf112.skeleton.objects.player.Enemy;
 import inf112.skeleton.objects.player.Player;
 
 
@@ -55,7 +56,7 @@ public class PlayState extends State{
 
     // game objects
     private Player player;
-
+    private Enemy enemy;
     public PlayState(GameStateManager gsm){
         super(gsm);
         filename = "maps/map3.tmx";
@@ -81,8 +82,9 @@ public class PlayState extends State{
         handleInput();
         world.step(1/60f, 6, 2);
         player.update();
+        enemy.update();
+        enemy.direction(player.getx(), player.gety());
         
-
         cameraUpdate();
         
         batch.setProjectionMatrix(cam.combined);
@@ -140,6 +142,13 @@ public class PlayState extends State{
 
     public Player getPlayer(){
         return player;
+    }
+    public Enemy getEnemy(){
+        return enemy;
+    }
+
+    public void setEnemy(Enemy enemy){
+        this.enemy = enemy;
     }
 
   

@@ -19,6 +19,7 @@ public class Player extends GameEntity{
     private int jumpCounter;
     private int framesGrounded;
     private Texture playerTexture;
+    private float slideForceMagnitude = 10.5f;
 
     public Player(float width, float height, Body body) {
         super(width, height, body);
@@ -38,6 +39,7 @@ public class Player extends GameEntity{
         
         checkUserInput();
 
+       
 
     }
 
@@ -81,6 +83,14 @@ public class Player extends GameEntity{
         }
         
         body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
+    }
+
+    public void slide() {     
+/*         Vector2 slideDirection = new Vector2((float) -Math.sin(body.getAngle()), (float) Math.cos(body.getAngle()));                
+        body.applyForceToCenter(slideDirection.scl(slideForceMagnitude), true);   */  
+/*         float force = body.getMass() * 10;
+        body.setLinearVelocity(body.getLinearVelocity().x, 0);
+        body.applyLinearImpulse(new Vector2(1, force*3*-1), body.getPosition(), true); */
     }
 
     
