@@ -12,6 +12,11 @@ import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
 import inf112.skeleton.states.PlayState;
+import inf112.skeleton.states.MenuState;
+import inf112.skeleton.states.PlayState;
+
+
+
 
 // Define a contact listener class
 public class MyContactListener implements ContactListener {
@@ -43,6 +48,14 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("slope") || fixtureB.getUserData().equals("slope")) {
                 isOnSlope = true;
                 getGroundAngle(contact);
+            }
+        }  
+
+        if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
+            // Check if the other fixture is the ground
+            if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
+                
+                gsm.push(new DeathState(gsm));
             }
         }
     }
