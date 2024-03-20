@@ -20,12 +20,14 @@ public class Player extends GameEntity{
     private int framesGrounded;
     private Texture playerTexture;
     private float slideForceMagnitude = 10.5f;
+    private float fastFallSpeed = -10.0f;
+   
 
     public Player(float width, float height, Body body) {
         super(width, height, body);
-        this.speed = 4f;
+        this.speed = 5f;
         this.jumpCounter = 0;
-    
+        
         playerTexture = new Texture("images/button.jpg");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("player");
@@ -58,7 +60,7 @@ public class Player extends GameEntity{
     @Override
     public void render(SpriteBatch batch) {
 /*         batch.begin();
-        batch.draw(playerTexture, this.getx() - this.getWidth()/2, this.gety() - this.getHeight()/2, this.getWidth(), this .getHeight());
+        batch.draw(playerTexture, getx() - getWidth()/2, gety() - getHeight()/2, getWidth(), getHeight());
         batch.end(); */
     }
     
@@ -70,8 +72,9 @@ public class Player extends GameEntity{
 
         if((body.getLinearVelocity().y == 0) && framesGrounded != 5){
             framesGrounded++;
-            if(framesGrounded == 5){
+            if(framesGrounded == 3){
                 jumpCounter = 0;
+                
             }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < 2){
@@ -84,13 +87,22 @@ public class Player extends GameEntity{
         
         body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
     }
-
+    
+    public void fastFall(){
+        body.setLinearVelocity(velX*speed,fastFallSpeed);
+        
+    }
     public void slide() {     
 /*         Vector2 slideDirection = new Vector2((float) -Math.sin(body.getAngle()), (float) Math.cos(body.getAngle()));                
         body.applyForceToCenter(slideDirection.scl(slideForceMagnitude), true);   */  
 /*         float force = body.getMass() * 10;
         body.setLinearVelocity(body.getLinearVelocity().x, 0);
         body.applyLinearImpulse(new Vector2(1, force*3*-1), body.getPosition(), true); */
+    }
+
+    @Override
+    public void direction(float x, float y) {
+
     }
 
     

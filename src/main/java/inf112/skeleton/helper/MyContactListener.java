@@ -17,6 +17,9 @@ import inf112.skeleton.states.PlayState;
 // Define a contact listener class
 public class MyContactListener implements ContactListener {
     public static boolean isOnContact;
+
+
+    public static Fixture projFixture;
     private GameStateManager gsm;
     public MyContactListener(GameStateManager gsm){
         this.gsm = gsm;
@@ -57,6 +60,28 @@ public class MyContactListener implements ContactListener {
             }
         }  
 
+        if (fixtureA.getUserData().equals("projectile") || fixtureB.getUserData().equals("projectile")) {
+            // Check if the other fixture is the ground
+            if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
+                
+                if(fixtureA.getUserData().equals("projectile")){
+                    projFixture = fixtureA;
+                }
+                if(fixtureB.getUserData().equals("projectile")){
+                    projFixture = fixtureB;
+                }
+            }
+        } 
+
+        if (fixtureA.getUserData().equals("projectile") || fixtureB.getUserData().equals("projectile")) {
+            // Check if the other fixture is the ground
+            if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
+                
+                gsm.push(new DeathState(gsm));
+               
+            }
+        } 
+
 
     }
 
@@ -75,6 +100,7 @@ public class MyContactListener implements ContactListener {
                 isOnContact = false;
             }
         }  
+
     }
 
     

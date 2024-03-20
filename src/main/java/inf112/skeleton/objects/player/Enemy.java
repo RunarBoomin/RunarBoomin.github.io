@@ -22,6 +22,7 @@ public class Enemy extends GameEntity {
         super(width, height, body);
         this.speed = 2f;
         this.jumpCounter = 0;
+        
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("enemy");
         }
@@ -32,7 +33,6 @@ public class Enemy extends GameEntity {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
        
-        
         body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
     }
 
@@ -41,16 +41,12 @@ public class Enemy extends GameEntity {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastJumpTime >= JUMP_COOLDOWN) {
             // Perform jumping action
-            float force = body.getMass() * 10;
+            float force = body.getMass() * 7;
             body.setLinearVelocity(body.getLinearVelocity().x, 0);
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             // Update last jump time
             lastJumpTime = currentTime;
         }
-
-       
-        
-        
     }
 
 
@@ -68,14 +64,14 @@ public class Enemy extends GameEntity {
            jumping();
             
         }
+    }
 
+    public float getx(){
+        return x;
+    }
 
-        
-
-/*         if(playerPosy> this.y){
-            velX = 1;
-        } */
-        
+    public float gety(){
+        return y;
     }
     @Override
     public void render(SpriteBatch batch) {

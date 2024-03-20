@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 public abstract class GameEntity {
     protected float x, y;
     public float velX;
-    protected float velY;
+    public float velY;
     protected float speed;
     protected float width, height;
     protected Body body;
@@ -29,4 +29,9 @@ public abstract class GameEntity {
     public Body getBody(){
         return body;
     }
+    public float gety(){
+        return y;
+    }
+
+    public abstract void direction(float x, float y);
 }
