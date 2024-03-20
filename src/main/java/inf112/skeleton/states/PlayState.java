@@ -32,6 +32,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.helper.MyContactListener;
 import inf112.skeleton.helper.TileMapHelper;
 import inf112.skeleton.objects.player.Player;
+import inf112.skeleton.objects.player.ShopKeeper;
 
 
 
@@ -55,6 +56,7 @@ public class PlayState extends State{
 
     // game objects
     private Player player;
+    private ShopKeeper keeper;
 
     public PlayState(GameStateManager gsm){
         super(gsm);
@@ -140,6 +142,14 @@ public class PlayState extends State{
 
     public Player getPlayer(){
         return player;
+    }
+
+    public void setKeeper(ShopKeeper keeper) {
+        this.keeper = keeper;
+    }
+
+    public ShopKeeper getKeeper() {
+        return keeper;
     }
 
   

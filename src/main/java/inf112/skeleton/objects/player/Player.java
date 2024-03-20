@@ -17,13 +17,19 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class Player extends GameEntity{
     private int jumpCounter;
+    private int maxJumps;
+    private int jumpForce;
     private int framesGrounded;
     private Texture playerTexture;
+    private int wallet;
 
     public Player(float width, float height, Body body) {
         super(width, height, body);
         this.speed = 4f;
         this.jumpCounter = 0;
+        this.wallet = 100;
+        this.maxJumps = 2;
+        this.jumpForce = 10;
     
         playerTexture = new Texture("images/button.jpg");
         for (Fixture fixture : body.getFixtureList()) {
@@ -72,8 +78,8 @@ public class Player extends GameEntity{
                 jumpCounter = 0;
             }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < 2){
-            float force = body.getMass() * 10;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
+            float force = body.getMass() * jumpForce;
             body.setLinearVelocity(body.getLinearVelocity().x, 0);
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             framesGrounded = 0;
@@ -81,6 +87,31 @@ public class Player extends GameEntity{
         }
         
         body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
+    }
+
+    public int getWallet() {
+        return wallet;
+    }
+    public boolean useWallet(int cost) {
+        if (wallet >= cost) {
+            wallet -= cost;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public int getJumpCount() {
+        return maxJumps;
+    }
+
+    public void addJumps(int jumps) {
+        maxJumps += jumps;
+    }
+
+    public void addJumpForce(int force) {
+        jumpForce += force;
     }
 
     

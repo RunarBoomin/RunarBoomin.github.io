@@ -20,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.objects.player.Player;
+import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.states.PlayState;
 public class TileMapHelper {
     private TiledMap tiledMap;
@@ -61,6 +62,18 @@ public class TileMapHelper {
                     );
 
                     playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+                    
+                    Body body2 = BodyHelperService.createBody(
+                        300,
+                        300, 
+                        rectangle.getWidth(), 
+                        rectangle.getHeight(), 
+                        false, 
+                        playstate.getWorld()
+                    );
+                    
+                    playstate.setKeeper(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body2));
+                    
                 }
             }
             
