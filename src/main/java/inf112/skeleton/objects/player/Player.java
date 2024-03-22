@@ -16,8 +16,11 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class Player extends GameEntity {
     private int jumpCounter;
+    private int maxJumps;
+    private int jumpForce;
     private int framesGrounded;
     private Texture playerTexture;
+    private int wallet;
    
     private float fastFallSpeed = -10.0f;
    
@@ -27,6 +30,10 @@ public class Player extends GameEntity {
         super(width, height, body);
         this.speed = 5f;
         this.jumpCounter = 0;
+        this.wallet = 100;
+        this.maxJumps = 2;
+        this.jumpForce = 10;
+    
         
 
         playerTexture = new Texture("images/button.jpg");
@@ -81,11 +88,14 @@ public class Player extends GameEntity {
         if ((body.getLinearVelocity().y == 0) && framesGrounded != 5) {
             framesGrounded++;
             if(framesGrounded == 5){
-            if (framesGrounded == 5) {
-                jumpCounter = 0;
-                
+                if (framesGrounded == 5) {
+                    jumpCounter = 0;
+                    
+                }
             }
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
+            float force = body.getMass() * jumpForce;
         }
         
         if (Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < 2) {
@@ -125,7 +135,34 @@ public class Player extends GameEntity {
         else {
             body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
         }
-    
+        
+        body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
     }
 
+    public int getWallet() {
+        return wallet;
+    }
+    public boolean useWallet(int cost) {
+        if (wallet >= cost) {
+            wallet -= cost;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public int getJumpCount() {
+        return maxJumps;
+    }
+
+    public void addJumps(int jumps) {
+        maxJumps += jumps;
+    }
+
+    public void addJumpForce(int force) {
+        jumpForce += force;
+    }
+
+    
 }

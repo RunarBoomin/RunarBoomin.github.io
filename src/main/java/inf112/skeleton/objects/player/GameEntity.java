@@ -10,6 +10,7 @@ public abstract class GameEntity {
     protected float speed;
     protected float width, height;
     protected Body body;
+    protected float accel;
 
     public GameEntity(float width, float height, Body body){
         this.x = body.getPosition().x;
@@ -20,6 +21,7 @@ public abstract class GameEntity {
         this.velX = 0;
         this.velY = 0;
         this.speed = 0;
+        this.accel = 1f;
     }
 
     public abstract void update();
@@ -34,4 +36,12 @@ public abstract class GameEntity {
     }
 
     public abstract void direction(float x, float y);
+
+    public float getAccel() {
+        return accel;
+    }
+
+    public void addAccel(float accel) {
+        this.accel += accel;
+    }
 }
