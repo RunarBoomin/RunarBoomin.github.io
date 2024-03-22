@@ -42,8 +42,8 @@ public class MyContactListener implements ContactListener {
         if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
-               
-            } isOnContact = true;
+                isOnContact = true;
+            } 
         }
 
         // Check if fixtureA or fixtureB is the player's fixture
