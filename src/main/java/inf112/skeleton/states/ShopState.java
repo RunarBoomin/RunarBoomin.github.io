@@ -12,9 +12,9 @@ public class ShopState extends State {
     Player player;
     Shop shop;
 
-    public ShopState(GameStateManager gsm, Player player) {
+    public ShopState(GameStateManager gsm, Player player, Shop shop) {
         super(gsm);
-        shop = new Shop(5, player);
+        this.shop = shop;
         for (int i = 0; i < shop.getShop().size(); i++) {
             final int index = i;
             map.put(new Texture("images/button3.png"), () -> {

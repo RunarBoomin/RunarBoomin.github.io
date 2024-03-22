@@ -1,5 +1,8 @@
 package inf112.skeleton.states;
 
+import static inf112.skeleton.helper.Constants.height;
+import static inf112.skeleton.helper.Constants.width;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,7 +37,7 @@ public class PauseState extends State {
             Gdx.app.exit();
         });
 
-        createButtons(300, 100, 2);
+        createButtons(250, 120, 2);
 
     }
 
@@ -68,6 +71,8 @@ public class PauseState extends State {
         sb.begin();
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY(); // Flip Y coordinate
+        Texture test = new Texture("images/frame5.png");
+        sb.draw(test, width/2-test.getWidth()/2, height/4, test.getWidth(), test.getHeight());
         for (Button button : buttons) {
              // Assuming 'sb' is your SpriteBatch object
             if (button.contains(mouseX, mouseY)) {

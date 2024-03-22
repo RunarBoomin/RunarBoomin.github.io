@@ -1,6 +1,7 @@
 package inf112.skeleton.states;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,21 +11,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Button {
     private Texture texture;
-    private int x, y;
-    private int width, height;
-    private Rectangle bounds;
+    private float x, y;
+    private float width, height;
+    private Rectangle2D bounds;
     private Runnable onClickListener;
 
     private String buttonText;
     private BitmapFont font;
 
-    public Button(Texture texture, int x, int y, int width, int height) {
+    public Button(Texture texture, float x, float y, float width, float height) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.bounds = new Rectangle(x, y, width, height);
+        this.bounds = new Rectangle2D.Float(x, y, width, height);
+    
 
         this.buttonText = "";
         this.font = new BitmapFont();
@@ -68,5 +70,9 @@ public class Button {
     public void setButtonText(String buttonText, int fontSize) {
         this.buttonText = buttonText;
         this.font.getData().setScale((float) fontSize / font.getCapHeight());
+    }
+
+    public float getHeight(){
+        return texture.getHeight();
     }
 }

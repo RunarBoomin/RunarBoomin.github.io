@@ -19,6 +19,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.objects.player.Enemy;
+import inf112.skeleton.objects.player.Enemy2;
 import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.states.PlayState;
@@ -46,35 +48,47 @@ public class TileMapHelper {
                
                 createStaticBody((PolygonMapObject) mapObject, mapObject.getName());
             }
+
+            
             
             if(mapObject instanceof RectangleMapObject){
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
                 String rectangleName = mapObject.getName();
 
-                if(rectangleName != null && rectangleName.equals("player")){
-                    Body body = BodyHelperService.createBody(
-                        rectangle.getX() + rectangle.getWidth() / 2,
-                        rectangle.getY() + rectangle.getHeight()/2, 
-                        rectangle.getWidth(), 
-                        rectangle.getHeight(), 
-                        false, 
-                        playstate.getWorld()
-                    );
+                createGameEntity(rectangle, rectangleName, "player",1, 1);
+                createGameEntity(rectangle, rectangleName, "enemy",1f,1f);
+                createGameEntity(rectangle, rectangleName, "enemy2",1f,1f);
+                createGameEntity(rectangle, rectangleName, "keeper1", 1f, 1f);
+            }
+            
+        }
+    }
 
-                    playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
-                    
-                    Body body2 = BodyHelperService.createBody(
-                        300,
-                        300, 
-                        rectangle.getWidth(), 
-                        rectangle.getHeight(), 
-                        false, 
-                        playstate.getWorld()
-                    );
-                    
-                    playstate.setKeeper(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body2));
-                    
-                }
+
+
+    private void createGameEntity(Rectangle rectangle, String rectangleName, String name, float scaleWidth, float scaleHeight){
+        if(rectangleName != null && rectangleName.equals(name)){
+            Body body = BodyHelperService.createBody(
+                rectangle.getX() + rectangle.getWidth() / 2,
+                rectangle.getY() + rectangle.getHeight()/2, 
+                rectangle.getWidth() * scaleWidth, 
+                rectangle.getHeight() * scaleHeight, 
+                false, 
+                playstate.getWorld()
+            );
+
+            if(name == "player"){
+                playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+            }
+
+            if(name == "enemy"){
+                playstate.addEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
+            }
+            if(name == "enemy2"){
+                playstate.addEnemy(new Enemy2(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getWorld()));
+            }
+            if (name == "keeper") {
+                playstate.addShop(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body));
             }
             
         }
