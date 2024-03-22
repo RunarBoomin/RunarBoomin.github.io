@@ -39,6 +39,7 @@ import inf112.skeleton.objects.player.Enemy;
 import inf112.skeleton.objects.player.Enemy2;
 import inf112.skeleton.objects.player.GameEntity;
 import inf112.skeleton.objects.player.Player;
+import inf112.skeleton.objects.player.ShopKeeper;
 
 
 
@@ -61,6 +62,7 @@ public class PlayState extends State{
     private Player player;
     private Texture heartTexture;
 
+    private List<ShopKeeper> shops;
 
  
     List<GameEntity> enemies = new ArrayList<>();
@@ -71,6 +73,7 @@ public class PlayState extends State{
         this.world = new World(new Vector2(0,-5f), false);
         this.box2dDebugRenderer = new Box2DDebugRenderer();
         playerTexture = new Texture("images/background.jpg");
+        this.shops = new ArrayList<>();
         
         createMap(filename);
         this.world.setContactListener(new MyContactListener(gsm));
@@ -187,8 +190,6 @@ public class PlayState extends State{
         return player;
     }
 
-
-
     public void addEnemy(GameEntity enemy){
         enemies.add(enemy);
     }
@@ -200,6 +201,14 @@ public class PlayState extends State{
     @Override
     public void handleInput() {
 
+    }
+
+    public void addShop(ShopKeeper shopKeeper) {
+        shops.add(shopKeeper);
+    }
+
+    public List<ShopKeeper> getShops() {
+        return shops;
     }
 
 

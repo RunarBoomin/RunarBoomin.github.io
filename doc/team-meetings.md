@@ -67,3 +67,11 @@ Oppmøte: Marius, Runar, Tommy, Karsten
 
 *Møte digitalt
 *Gjekk gjennom det vi har jobba med sidan sist
+
+## Møte 20.03.2024
+
+Oppmøte: Marius, Runar, Tommy, Karsten, Viktor
+
+* Møte via discord
+* Satt planar for butikk, poeng/pengar, lage lydar og musikk, muligheit til å drepe enemies, HP til player og enemies
+* Korleis ein skal drepe enemies må diskuterast
