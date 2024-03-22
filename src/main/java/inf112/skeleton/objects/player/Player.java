@@ -136,7 +136,6 @@ public class Player extends GameEntity {
             body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
         }
         
-        body.setLinearVelocity(velX * speed, body.getLinearVelocity().y < 18 ? body.getLinearVelocity().y : 18);
     }
 
     public int getWallet() {
