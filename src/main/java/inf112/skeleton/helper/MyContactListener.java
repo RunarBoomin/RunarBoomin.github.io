@@ -24,6 +24,7 @@ public class MyContactListener implements ContactListener {
 
 
     public static Fixture projFixture;
+    public static Fixture enemyHurt;
     public static boolean isOnSlope;
     public static float groundAngle;
     private GameStateManager gsm;
@@ -41,8 +42,8 @@ public class MyContactListener implements ContactListener {
         if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
-                isOnContact = true;
-            }
+               
+            } isOnContact = true;
         }
 
         // Check if fixtureA or fixtureB is the player's fixture
@@ -57,10 +58,15 @@ public class MyContactListener implements ContactListener {
         if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
+                ((PlayState)gsm.getState()).getPlayer().removeLife();
                 
-                gsm.push(new DeathState(gsm));
             }
         }
+
+/*         testing(fixtureA, fixtureB, "player", "enemy", () -> {
+            // Handle button click event here
+            ((PlayState)gsm.getState()).getPlayer().removeLife();
+        }); */
     
 
         if (fixtureA.getUserData().equals("projectile") || fixtureB.getUserData().equals("projectile")) {
@@ -80,10 +86,45 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
                 
-                gsm.push(new DeathState(gsm));
+                ((PlayState)gsm.getState()).getPlayer().removeLife();
+                if(fixtureA.getUserData().equals("projectile")){
+                    projFixture = fixtureA;
+                }
+                if(fixtureB.getUserData().equals("projectile")){
+                    projFixture = fixtureB;
+                }
                
             }
         } 
+
+
+        if (fixtureA.getUserData().equals("weapon") || fixtureB.getUserData().equals("weapon")) {
+            // Check if the other fixture is the ground
+            if (fixtureA.getUserData().equals("projectile") || fixtureB.getUserData().equals("projectile")) {
+                
+                
+                if(fixtureA.getUserData().equals("projectile")){
+                    projFixture = fixtureA;
+                }
+                if(fixtureB.getUserData().equals("projectile")){
+                    projFixture = fixtureB;
+                }
+               
+            }
+        } 
+
+        testing(fixtureA, fixtureB, "weapon", "enemy", () -> {
+            // Handle button click event here
+            if(fixtureA.getUserData().equals("enemy")){
+                enemyHurt = fixtureA;
+                
+            }
+            if(fixtureB.getUserData().equals("enemy")){
+                enemyHurt = fixtureB;
+                
+            }
+            
+        });
     }
     private void getGroundAngle(Contact contact) {
         // Get the fixtures involved in the contact
@@ -119,6 +160,17 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("slope") || fixtureB.getUserData().equals("slope")) {
                 isOnSlope = false;
             }
+
+
+            testing(fixtureA, fixtureB, "weapon", "enemy", () -> {
+                // Handle button click event here
+                if(fixtureA.getUserData().equals("enemy")){
+                    enemyHurt = null;
+                }
+                if(fixtureB.getUserData().equals("enemy")){
+                    enemyHurt = null;
+                }
+            });
         }
     
 
@@ -132,6 +184,17 @@ public class MyContactListener implements ContactListener {
 
     }
 
+    private void testing(Fixture fixtureA, Fixture fixtureB,String obj1, String obj2, Runnable code){
+
+        if (fixtureA.getUserData().equals(obj1) || fixtureB.getUserData().equals(obj1)) {
+            // Check if the other fixture is the groundw
+            if (fixtureA.getUserData().equals(obj2) || fixtureB.getUserData().equals(obj2)) {
+                code.run();
+            }
+        }  
+
+
+    }
 }
 
 

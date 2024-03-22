@@ -45,6 +45,7 @@ public abstract class State {
             Texture texture = entry.getKey();
             Runnable value = entry.getValue();
             
+            
 
             this.scaledWidth = texture.getWidth() / scale;
             float scaledHeight = texture.getHeight() / scale;

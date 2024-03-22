@@ -42,14 +42,21 @@ public class Controller {
            
             if(Gdx.input.isKeyPressed(Input.Keys.D)){
                 ((PlayState)state).getPlayer().velX = 1;
+                ((PlayState)state).getPlayer().playerDirection(1);
             }
             if(Gdx.input.isKeyPressed(Input.Keys.A)){
                 ((PlayState)state).getPlayer().velX = -1;
+                ((PlayState)state).getPlayer().playerDirection(-1);
              
             }
 
             if(Gdx.input.isKeyPressed(Input.Keys.S)){
                 ((PlayState)state).getPlayer().fastFall();
+             
+            }
+
+            if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+                ((PlayState)state).getPlayer().attack();
              
             }
         }

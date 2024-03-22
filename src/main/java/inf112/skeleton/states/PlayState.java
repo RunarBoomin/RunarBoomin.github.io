@@ -43,7 +43,7 @@ import inf112.skeleton.objects.player.Player;
 
 
 public class PlayState extends State{
-    private OrthographicCamera camera;
+    
     private SpriteBatch batch;
     private World world;
     private Box2DDebugRenderer box2dDebugRenderer;
@@ -59,6 +59,7 @@ public class PlayState extends State{
 
     // game objects
     private Player player;
+    private Texture heartTexture;
 
 
  
@@ -74,6 +75,9 @@ public class PlayState extends State{
         createMap(filename);
         this.world.setContactListener(new MyContactListener(gsm));
         font = new BitmapFont();
+
+        player.setGsm(gsm);
+        player.setWorld(world);
 
         
     } 
@@ -113,16 +117,39 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch sb) {
         orthogonalTiledMapRenderer.render();
-        batch.begin();
-        /* player.render(sb); */
-        //batch.draw(playerTexture, player.getx() - player.getWidth()/2, player.gety() - player.getHeight()/2, player.getWidth(), player.getHeight());
+        
+        sb.begin();
+        renderHearts(sb);
+        font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, height-10 );
+        sb.end();
+        
+       
+        /* batch.draw(playerTexture, player.getx() - player.getWidth()/2, player.gety() - player.getHeight()/2, player.getWidth(), player.getHeight()); */
+        player.render(batch);
+        
         // render objects
-        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), cam.position.x - (width/2 ) + 50, cam.position.y + (height/2) - 50);
-        batch.end();
+        
+        
         box2dDebugRenderer.render(world, cam.combined.scl(PPM));
+
+
         
     }
 
+    public void renderHearts(SpriteBatch sb){
+        
+       
+        int gap = 0;
+        heartTexture = new Texture("images/heart.png");
+        for (int i = 0; i < player.getHearts(); i++) {
+            
+            sb.draw(heartTexture, 100+gap, height-100, heartTexture.getWidth()/4, heartTexture.getHeight()/4);
+            
+            gap+= heartTexture.getWidth()/4;
+        }
+        
+        
+    }
  
     
     private void cameraUpdate(){
@@ -149,7 +176,7 @@ public class PlayState extends State{
     }
 
     public OrthographicCamera getCamera(){
-        return camera;
+        return cam;
     }
 
     public void setPlayer(Player player){

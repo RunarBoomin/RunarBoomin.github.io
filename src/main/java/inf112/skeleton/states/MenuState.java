@@ -76,11 +76,12 @@ public class MenuState extends State{
         sb.end();
         //backgroundFrame();
         sb.begin();
-/*         Texture test = new Texture("images/frame3.png");
-        sb.draw(test, width/2-test.getWidth()/2, -200, test.getWidth(), test.getHeight()); */
+     Texture test = new Texture("images/frame3.png");
+        
         // Render buttons
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY(); // Flip Y coordinate
+        //sb.draw(test, mouseX, mouseY, test.getWidth(), test.getHeight());
         for (Button button : buttons) {
             if (button.contains(mouseX, mouseY)) {
                 button.hover(sb);

@@ -33,5 +33,16 @@ public abstract class GameEntity {
         return y;
     }
 
+    public void knockBack(float x, float y, float x2, float y2){
+        float knockBackRange = 100;
+        if(x<x2){
+            knockBackRange = -20 * speed;
+        }
+        if(x>x2){
+            knockBackRange = 20 * speed;
+        }
+        body.setLinearVelocity(knockBackRange,0);
+    }
+
     public abstract void direction(float x, float y);
 }

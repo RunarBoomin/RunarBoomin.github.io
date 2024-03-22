@@ -76,11 +76,11 @@ public class TileMapHelper {
             );
 
             if(name == "player"){
-                playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+                playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getCamera()));
             }
 
             if(name == "enemy"){
-                playstate.addEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
+                playstate.addEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getWorld()));
             }
             if(name == "enemy2"){
                 playstate.addEnemy(new Enemy2(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getWorld()));
