@@ -7,6 +7,7 @@ import static inf112.skeleton.helper.MyContactListener.projFixture;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,6 +18,7 @@ import inf112.skeleton.states.PlayState;
 
 public class Enemy extends GameEntity {
 
+    private Texture enemyT;
     private int jumpCounter;
     private int framesGrounded;
     private long lastJumpTime = 0;
@@ -35,6 +37,8 @@ public class Enemy extends GameEntity {
         this.jumpCounter = 0;
         this.world = world;
         
+        // Load the enemy texture
+        enemyT = new Texture("images/enemy.png");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("enemy");
         }
@@ -112,7 +116,19 @@ public class Enemy extends GameEntity {
     }
     @Override
     public void render(SpriteBatch batch) {
+        // Calculate the position to center the texture on the player model
+        float textureX = x ; // Assuming the player model width is 32
+        float textureY = y ; // Assuming the player model height is 32
 
+        batch.begin();
+        // batch.draw(enemyT, textureX-42, textureY-40, 80, 75); // Normal drawing
+        // batch.end();
+        if (velX == -1) {
+            batch.draw(enemyT, textureX+42, textureY-40, -80, 75); // Normal drawing // Flip the texture horizontally
+            } else {
+                batch.draw(enemyT, textureX-42, textureY-40, 80, 75); // Normal drawing
+            }
+            batch.end();
     }
     
 }
