@@ -25,11 +25,13 @@ import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
 
 public class Player extends GameEntity {
+    private Texture playerT;
+    private boolean lastMovementLeft = false;
     private int jumpCounter;
     private int maxJumps;
     private int jumpForce;
     private int framesGrounded;
-    private Texture playerTexture;
+    // private Texture playerTexture;
     private int wallet;
    
     private float fastFallSpeed = -10.0f;
@@ -68,9 +70,10 @@ public class Player extends GameEntity {
         this.maxJumps = 2;
         this.jumpForce = 10;
     
-        
+        // Load the player texture
+        playerT = new Texture("images/player.png");
 
-        playerTexture = new Texture("images/button.jpg");
+        // playerTexture = new Texture("images/button.jpg");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("player");
         }
@@ -180,27 +183,29 @@ public class Player extends GameEntity {
     }
     @Override
     public void render(SpriteBatch batch) {
-/*         batch.begin();
-        batch.draw(playerTexture, getx() - getWidth()/2, gety() - getHeight()/2, getWidth(), getHeight());
-        batch.end(); */
-        /*
-         * batch.begin();
-         * batch.draw(playerTexture, this.getx() - this.getWidth()/2, this.gety() -
-         * this.getHeight()/2, this.getWidth(), this .getHeight());
-         * batch.end();
-         */
+        // Calculate the position to center the texture on the player model
+        float textureX = x + (width - 64) / 2; // Assuming the player model width is 32
+        float textureY = y + (height - 64) / 2; // Assuming the player model height is 32
 
+        // Determine if the player is moving to the left or right
+        boolean isMovingLeft = velX < 0; // Assuming velX represents the player's velocity in the X direction
+        boolean isMovingRight = velX > 0;
 
+        // Update lastMovementLeft based on the current movement direction
+        if (isMovingLeft) {
+        lastMovementLeft = true;
+        } else if (isMovingRight) {
+        lastMovementLeft = false;
+        }
 
         batch.begin();
-        //batch.draw(test, worldCoordinates.x, worldCoordinates.y, test.getWidth(), test.getHeight());
+        // Draw the player texture at the calculated position, scaled down size
+        if (lastMovementLeft) {
+        batch.draw(playerT, textureX + 35, textureY-38, -75,75); // Flip the texture horizontally
+        } else {
+        batch.draw(playerT, textureX - 35, textureY - 38, 75, 75); // Normal drawing
+        }
         batch.end();
-
-
-  
-   
-
-
     }
 
 

@@ -60,6 +60,8 @@ public class PlayState extends State{
 
     // game objects
     private Player player;
+   
+    // private Texture enemyTexture;
     private Texture heartTexture;
 
     private List<ShopKeeper> shops;
@@ -73,6 +75,8 @@ public class PlayState extends State{
         this.world = new World(new Vector2(0,-5f), false);
         this.box2dDebugRenderer = new Box2DDebugRenderer();
         playerTexture = new Texture("images/background.jpg");
+      
+
         this.shops = new ArrayList<>();
         
         createMap(filename);
@@ -129,9 +133,11 @@ public class PlayState extends State{
        
         /* batch.draw(playerTexture, player.getx() - player.getWidth()/2, player.gety() - player.getHeight()/2, player.getWidth(), player.getHeight()); */
         player.render(batch);
-        
-        // render objects
-        
+        // enemy.render(batch);
+        for (GameEntity enemy : enemies) {
+               enemy.render(batch);
+           }
+    
         
         box2dDebugRenderer.render(world, cam.combined.scl(PPM));
 
@@ -194,7 +200,13 @@ public class PlayState extends State{
         enemies.add(enemy);
     }
 
+    // public void setEnemy(Enemy enemy){
+    //     this.enemy = enemy;
+    // }
 
+    // public Enemy getEnemy(){
+    //     return enemy;
+    // }
   
     
 
@@ -211,6 +223,7 @@ public class PlayState extends State{
         return shops;
     }
 
+    
 
 
 }

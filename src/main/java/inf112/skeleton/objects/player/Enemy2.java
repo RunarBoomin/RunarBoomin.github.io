@@ -3,7 +3,7 @@ package inf112.skeleton.objects.player;
 import static inf112.skeleton.helper.Constants.PPM;
 import static inf112.skeleton.helper.MyContactListener.projFixture;
 
-
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.helper.BodyHelperService;
 
 public class Enemy2 extends GameEntity {
+    private Texture enemy2T;
+    private Texture projectileT;
     private World world;
     private boolean projectileAlive = false;
     private Body procBody;
@@ -32,6 +34,9 @@ public class Enemy2 extends GameEntity {
         this.speed = 5f;
         body.setGravityScale(0);
         body.setType(BodyDef.BodyType.StaticBody);
+
+        projectileT = new Texture("images/projectile.png");
+        enemy2T = new Texture("images/enemy2.png");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("enemy2");
         }
@@ -109,8 +114,26 @@ public class Enemy2 extends GameEntity {
     }
     @Override
     public void render(SpriteBatch batch) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+        // Calculate the position to center the texture on the player model
+        float textureX = x ; // Assuming the player model width is 32
+        float textureY = y ; // Assuming the player model height is 32
+
+        batch.begin();
+        if (velX == -1) {
+            batch.draw(enemy2T, textureX+42, textureY-40, -80, 75); // Flip the texture horizontally
+            } else {
+                batch.draw(enemy2T, textureX-42, textureY-40, 80, 75); // Normal drawing
+            }
+            batch.end();
+
+        // Render the projectile if it's alive
+        if (projectileAlive) {
+            float projectileX = procBody.getPosition().x * PPM;
+            float projectileY = procBody.getPosition().y * PPM;
+            batch.begin();
+            batch.draw(projectileT, projectileX-20, projectileY-20, 50,50); // Adjust position and scale as needed
+            batch.end();
+        }
     }
     
 public void direction(float playerPosx, float playerPosy) {
