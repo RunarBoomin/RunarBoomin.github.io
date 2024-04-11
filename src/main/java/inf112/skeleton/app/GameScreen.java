@@ -30,6 +30,7 @@ public class GameScreen extends ScreenAdapter{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setForegroundFPS(120);
+        Gdx.graphics.setVSync(false);
         controller.handleInput(gameStateManager.getState());
 		gameStateManager.update(Gdx.graphics.getDeltaTime());
         gameStateManager.render(batch);
