@@ -75,3 +75,12 @@ Oppmøte: Marius, Runar, Tommy, Karsten, Viktor
 * Møte via discord
 * Satt planar for butikk, poeng/pengar, lage lydar og musikk, muligheit til å drepe enemies, HP til player og enemies
 * Korleis ein skal drepe enemies må diskuterast
+
+## Møte 22.03.2024
+
+Oppmøte: Marius, Runar, Tommy, Karsten, Viktor
+
+* Møte via discord
+* Viste fram bruk av HP og enemies.
+* Lydar og lydspelar er lagt til.
+* Attack er lagt til.
