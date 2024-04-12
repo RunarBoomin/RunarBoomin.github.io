@@ -175,4 +175,6 @@ Dette har vi ordna sidan sist:
 * Vi har lagt til en game-over-meny når ein dør.
 * Vi har endra bane og gjort den større
 
-manuell testing og brukermanualer ligger i readme.md filen.
+### Lisensar
+
+Lisensar ligg i license.md
