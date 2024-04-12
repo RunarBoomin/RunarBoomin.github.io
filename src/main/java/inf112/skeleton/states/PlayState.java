@@ -40,6 +40,7 @@ import inf112.skeleton.objects.player.Enemy2;
 import inf112.skeleton.objects.player.GameEntity;
 import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.objects.player.ShopKeeper;
+import inf112.skeleton.helper.SoundPlayer;
 
 
 
@@ -117,6 +118,7 @@ public class PlayState extends State{
 
     public void playerOnScreen(){
         if((player.getBody().getPosition().y * PPM) < cam.position.y - (height/2) - 50){
+            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Fall");
             gsm.set(new MenuState(gsm));
         }
         

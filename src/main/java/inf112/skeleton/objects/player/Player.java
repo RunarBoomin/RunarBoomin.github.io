@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
-
+import inf112.skeleton.helper.SoundPlayer;
 import inf112.skeleton.helper.BodyHelperService;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
@@ -140,6 +140,7 @@ public class Player extends GameEntity {
     public void attack(){
         if(!weaponOut){
             if(!attacking){
+                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\SwordAttack");
                 createWeapon();
                 attacking = true;
                 Timer.schedule(new Timer.Task() {
@@ -158,6 +159,7 @@ public class Player extends GameEntity {
     }
     private void checkLife(){
         if(lifes == 0){
+            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Death");
             gsm.push(new DeathState(gsm));
         }
     }
@@ -249,12 +251,15 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
+        if (velX != 0 && isOnContact && framesGrounded%60 == 0) {
+            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
+        } 
 
         if (isOnSlope && jumpCounter == 0) {
             jumpCounter = 1;
         }
 
-        if ((body.getLinearVelocity().y == 0) && framesGrounded != 5) {
+        if ((body.getLinearVelocity().y == 0) ) {
             framesGrounded++;
             if(framesGrounded == 5){
                 if (framesGrounded == 5) {
@@ -273,6 +278,7 @@ public class Player extends GameEntity {
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             framesGrounded = 0;
             jumpCounter++;
+            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Jump");
         }
         move();
     }
