@@ -32,6 +32,7 @@ public class GameScreen extends ScreenAdapter{
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
         
+
         controller.handleInput(gameStateManager.getState());
 		gameStateManager.update(Gdx.graphics.getDeltaTime());
         gameStateManager.render(batch);
