@@ -11,6 +11,7 @@ public abstract class GameEntity {
     protected float width, height;
     protected Body body;
     protected float accel;
+    protected int life;
 
     public GameEntity(float width, float height, Body body){
         this.x = body.getPosition().x;
@@ -22,6 +23,7 @@ public abstract class GameEntity {
         this.velY = 0;
         this.speed = 0;
         this.accel = 1f;
+        this.life = 2;
     }
 
     public abstract void update();
@@ -35,6 +37,9 @@ public abstract class GameEntity {
         return y;
     }
 
+    public int getHP(){
+        return life;
+    }
     public void knockBack(float x, float y, float x2, float y2){
         float knockBackRange = 100;
         if(x<x2){

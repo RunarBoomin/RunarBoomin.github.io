@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,7 @@ import inf112.skeleton.states.GameStateManager;
 
 public class Player extends GameEntity {
     private Texture playerT;
+    private Texture swordT;
     private boolean lastMovementLeft = false;
     private int jumpCounter;
     private int maxJumps;
@@ -60,6 +62,11 @@ public class Player extends GameEntity {
 
     Vector3 worldCoordinates = new Vector3();;
 
+
+    private float weaponX;
+    private float weaponY;
+
+    private float angle;
     public Player(float width, float height, Body body, OrthographicCamera camera) {
         super(width, height, body);
         this.speed = 5f;
@@ -72,7 +79,8 @@ public class Player extends GameEntity {
     
         // Load the player texture
         playerT = new Texture("images/player.png");
-
+        
+        swordT = new Texture("images/sword2.png");
         // playerTexture = new Texture("images/button.jpg");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("player");
@@ -91,7 +99,7 @@ public class Player extends GameEntity {
             worldCoordinates = camera.unproject(new Vector3(mouseX, mouseY, 0));
         }
         
-        
+        System.out.println(framesGrounded);
 
 
         checkUserInput();
@@ -119,11 +127,11 @@ public class Player extends GameEntity {
         float weaponDistance = 2f; // Adjust as needed
         
         // Calculate the position of the weapon based on the player's position and direction towards the mouse
-        float weaponX = body.getPosition().x + playerToMouse.x * weaponDistance;
-        float weaponY = body.getPosition().y + playerToMouse.y * weaponDistance;
+        weaponX = body.getPosition().x + playerToMouse.x * weaponDistance;
+        weaponY = body.getPosition().y + playerToMouse.y * weaponDistance;
         
         // Calculate the angle between the player's position and the mouse position
-        float angle = playerToMouse.angleRad();
+        angle = playerToMouse.angleRad();
         
         // Set the transform of the weapon
         weapon.setTransform(weaponX, weaponY, angle);
@@ -193,17 +201,48 @@ public class Player extends GameEntity {
 
         // Update lastMovementLeft based on the current movement direction
         if (isMovingLeft) {
-        lastMovementLeft = true;
+            if(!weaponOut){
+                lastMovementLeft = true;
+            }
+        
         } else if (isMovingRight) {
-        lastMovementLeft = false;
+            if(!weaponOut){
+                lastMovementLeft = false;
+            }
+        
         }
 
+        float degrees = angle * (180.0f / (float)Math.PI);
+
+
+
         batch.begin();
+
         // Draw the player texture at the calculated position, scaled down size
         if (lastMovementLeft) {
         batch.draw(playerT, textureX + 35, textureY-38, -75,75); // Flip the texture horizontally
         } else {
         batch.draw(playerT, textureX - 35, textureY - 38, 75, 75); // Normal drawing
+        }
+
+        if(weaponOut){
+            
+            batch.draw(swordT,
+            x,y-swordT.getHeight()/2f-20,   // Position
+            0, swordT.getHeight() / 2.0f,  // Origin set to the center of the texture
+            swordT.getWidth(), swordT.getHeight(),   // Full size of the texture
+            1f, 1f,   // No scale
+            degrees,   // 90 degrees rotation
+            0, 0,   // Starting at the top-left of the texture
+            swordT.getWidth(), swordT.getHeight(),  // Full texture
+            false, false);  // No flip
+
+            if(weapon.getPosition().x*PPM < x){
+                lastMovementLeft = true;
+            }
+            if(weapon.getPosition().x*PPM > x){
+                lastMovementLeft = false;
+            }
         }
         batch.end();
     }
@@ -235,7 +274,7 @@ public class Player extends GameEntity {
                 world.destroyBody(weapon);
                 weaponOut = false;
             }
-        }, 0.1f); // 2 seconds delay
+        }, 0.2f); // 2 seconds delay
         
 
        
@@ -254,7 +293,7 @@ public class Player extends GameEntity {
             jumpCounter = 1;
         }
 
-        if ((body.getLinearVelocity().y == 0) && framesGrounded != 5) {
+        if ((body.getLinearVelocity().y == 0)) {
             framesGrounded++;
             if(framesGrounded == 5){
                 if (framesGrounded == 5) {
@@ -263,6 +302,12 @@ public class Player extends GameEntity {
                 }
             }
         }
+
+        if(!isOnContact && jumpCounter == 0){
+            framesGrounded = 0;
+            jumpCounter = 1;
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
             float force = body.getMass() * jumpForce;
         }

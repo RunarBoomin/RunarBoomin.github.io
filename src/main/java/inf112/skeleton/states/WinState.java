@@ -1,47 +1,23 @@
 package inf112.skeleton.states;
 
-import static inf112.skeleton.helper.Constants.height;
-import static inf112.skeleton.helper.Constants.width;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class PauseState extends State {
+import static inf112.skeleton.helper.Constants.height;
+import static inf112.skeleton.helper.Constants.width;
 
+public class WinState extends State {
 
-    public PauseState(GameStateManager gsm) {
+    public WinState(GameStateManager gsm) {
         super(gsm);
-        map.put(new Texture("images/button3.png"), () -> {
-            // Handle button click event here
-            gsm.pop();
-        });
-        
         map.put(new Texture("images/buttonRestart.png"), () -> {
             // Handle button click event here
-            gsm.set(new PlayState(gsm));
-        });
-
-/*         map.put(new Texture("images/buttonSettings.png"), () -> {
-            // Handle button click event here
-            Gdx.app.exit();
-        }); */
-
-        map.put(new Texture("images/buttonMenu.png"), () -> {
-            // Handle button click event here
-            gsm.set(new MenuState(gsm));
-        });
-
-        map.put(new Texture("images/buttonQuit.png"), () -> {
-            // Handle button click event here
-            Gdx.app.exit();
+            gsm.push(new MenuState(gsm));
         });
 
         createButtons(250, 120, 2);
-
     }
-
-
 
     @Override
     public void handleInput() {

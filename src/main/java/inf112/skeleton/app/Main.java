@@ -18,7 +18,7 @@ public class Main {
 
          // Get the display mode for fullscreen
         DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
-        
+        cfg.useVsync(true);
         // Set fullscreen mode
         cfg.setFullscreenMode(displayMode);
 

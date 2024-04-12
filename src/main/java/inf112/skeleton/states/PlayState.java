@@ -65,7 +65,7 @@ public class PlayState extends State{
     private Texture heartTexture;
 
     private List<ShopKeeper> shops;
-
+    private boolean debug = false;
  
     List<GameEntity> enemies = new ArrayList<>();
     public PlayState(GameStateManager gsm){
@@ -86,7 +86,6 @@ public class PlayState extends State{
         player.setGsm(gsm);
         player.setWorld(world);
 
-        
     } 
 
     public void createMap(String filename){
@@ -97,11 +96,16 @@ public class PlayState extends State{
     @Override
     public void update(float dt) {
         handleInput();
-        world.step(1/60f, 6, 2);
+        world.step(1/30f, 6, 2);
         player.update();
 
         for (GameEntity enemy : enemies) {
+
             enemy.update();
+            if(enemy.getHP() == 0){
+                enemies.remove(enemy);
+                break;
+            }
             if((cam.position.y + height/2) +30 > enemy.gety()){
                 enemy.direction(player.getx(), player.gety());
             }
@@ -117,7 +121,7 @@ public class PlayState extends State{
 
     public void playerOnScreen(){
         if((player.getBody().getPosition().y * PPM) < cam.position.y - (height/2) - 50){
-            gsm.set(new MenuState(gsm));
+            gsm.push(new DeathState(gsm));
         }
         
     }
@@ -138,8 +142,10 @@ public class PlayState extends State{
                enemy.render(batch);
            }
     
+        if(debug){
+            box2dDebugRenderer.render(world, cam.combined.scl(PPM));
+        }
         
-        box2dDebugRenderer.render(world, cam.combined.scl(PPM));
 
 
         
@@ -178,7 +184,9 @@ public class PlayState extends State{
 
     
 
-    
+    public void toggleDebug(){
+        debug = !debug;
+    }
     
     public World getWorld(){
         return world;
@@ -198,6 +206,10 @@ public class PlayState extends State{
 
     public void addEnemy(GameEntity enemy){
         enemies.add(enemy);
+    }
+
+    public void addGoal(GameEntity goal){
+        enemies.add(goal);
     }
 
     // public void setEnemy(Enemy enemy){

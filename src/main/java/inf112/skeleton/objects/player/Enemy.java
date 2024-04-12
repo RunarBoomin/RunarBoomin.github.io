@@ -24,11 +24,13 @@ public class Enemy extends GameEntity {
     private long lastJumpTime = 0;
     private long lastHitTime = 0;
     private World world;
-    private int life = 2;
+    /* private int life = 2; */
     private float playerPos;
     private float playerPosy;
     private static final long hitCD = 1000;
     private static final long JUMP_COOLDOWN = 3000; // 3 seconds in milliseconds
+
+    private boolean canAct = false;
 
     private boolean dead = false;
     public Enemy(float width, float height, Body body, World world) {
@@ -75,6 +77,8 @@ public class Enemy extends GameEntity {
             }
         }
     }
+
+
     public void jumping(){
 
         long currentTime = System.currentTimeMillis();
@@ -92,19 +96,27 @@ public class Enemy extends GameEntity {
     public void direction(float playerPos, float playerPosy){
         this.playerPos = playerPos;
         this.playerPosy = playerPosy;
-        if(playerPos < this.x){
-            velX = -1;
-        }
-        
+        if(canAct){
 
-        if(playerPos > this.x){
-            velX = 1;
-        }
-
-        if(playerPosy > this.y+10){
-           jumping();
+            if(playerPos < this.x){
+                velX = -1;
+            }
             
+    
+            if(playerPos > this.x){
+                velX = 1;
+            }
+    
+            if(playerPosy > this.y+10){
+               jumping();
+                
+            }
         }
+
+        if(this.y <= playerPosy+40){
+            canAct = true;
+        }
+
     }
 
     public float getx(){

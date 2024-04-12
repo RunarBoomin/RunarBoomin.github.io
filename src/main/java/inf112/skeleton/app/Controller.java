@@ -66,6 +66,11 @@ public class Controller {
                 ((PlayState)state).getPlayer().attack();
              
             }
+
+            if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+                ((PlayState)state).toggleDebug();
+             
+            }
         }
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){

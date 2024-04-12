@@ -12,6 +12,7 @@ import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
 import inf112.skeleton.states.PlayState;
+import inf112.skeleton.states.WinState;
 import inf112.skeleton.states.MenuState;
 import inf112.skeleton.states.PlayState;
 
@@ -59,6 +60,14 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
+                
+            }
+        }
+
+        if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
+            // Check if the other fixture is the ground
+            if (fixtureA.getUserData().equals("goal") || fixtureB.getUserData().equals("goal")) {
+                gsm.push(new WinState(gsm));
                 
             }
         }
@@ -198,4 +207,4 @@ public class MyContactListener implements ContactListener {
 }
 
 
-// Somewhere in your initialization code, set up the contact listener
+

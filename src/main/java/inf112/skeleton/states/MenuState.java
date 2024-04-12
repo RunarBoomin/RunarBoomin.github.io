@@ -30,10 +30,10 @@ public class MenuState extends State{
             gsm.set(new PlayState(gsm));
         });
 
-        map.put(new Texture("images/buttonSettings.png"), () -> {
+/*         map.put(new Texture("images/buttonSettings.png"), () -> {
             // Handle button click event here
             System.out.println("settings pressed");
-        });
+        }); */
 
         map.put(new Texture("images/buttonQuit.png"), () -> {
             // Handle button click event here

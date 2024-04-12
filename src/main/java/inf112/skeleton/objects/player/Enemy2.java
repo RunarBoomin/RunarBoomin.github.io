@@ -31,7 +31,7 @@ public class Enemy2 extends GameEntity {
     public Enemy2(float width, float height, Body body, World world) {
         super(width, height, body);
         this.world = world;
-        this.speed = 5f;
+        this.speed = 3f;
         body.setGravityScale(0);
         body.setType(BodyDef.BodyType.StaticBody);
 
@@ -49,7 +49,7 @@ public class Enemy2 extends GameEntity {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
 
-        if(y <= playerPosy){
+        if(y <= playerPosy+100){
             shootProjectile();
         }
         
