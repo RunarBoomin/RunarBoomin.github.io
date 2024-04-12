@@ -5,13 +5,14 @@ import static inf112.skeleton.helper.MyContactListener.groundAngle;
 import static inf112.skeleton.helper.MyContactListener.isOnContact;
 import static inf112.skeleton.helper.MyContactListener.isOnSlope;
 
+import org.w3c.dom.Text;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import inf112.skeleton.helper.SoundPlayer;
 import inf112.skeleton.helper.BodyHelperService;
@@ -26,8 +28,11 @@ import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
 
 public class Player extends GameEntity {
-    private Texture playerT;
-    private Texture swordT;
+    private Texture player0;
+    private Texture player1;
+    private Texture player2;
+    private Texture player3;
+    private Texture player4;
     private boolean lastMovementLeft = false;
     private int jumpCounter;
     private int maxJumps;
@@ -60,13 +65,11 @@ public class Player extends GameEntity {
 
     private OrthographicCamera camera;
 
-    Vector3 worldCoordinates = new Vector3();;
+    Vector3 worldCoordinates = new Vector3();
+    private Texture weaponTexture;
+    private long weaponOutStartTime = 0;
+    
 
-
-    private float weaponX;
-    private float weaponY;
-
-    private float angle;
     public Player(float width, float height, Body body, OrthographicCamera camera) {
         super(width, height, body);
         this.speed = 5f;
@@ -78,9 +81,15 @@ public class Player extends GameEntity {
         this.jumpForce = 10;
     
         // Load the player texture
-        playerT = new Texture("images/player.png");
-        
-        swordT = new Texture("images/sword2.png");
+        player0 = new Texture("images/player0.png");
+        player1 = new Texture("images/player1.png");
+        player2 = new Texture("images/player2.png");
+        player3 = new Texture("images/player3.png");
+        player4 = new Texture("images/player4.png");
+
+        // Load the weapon texture
+        // weaponTexture = new Texture("images/weapon.png");
+
         // playerTexture = new Texture("images/button.jpg");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("player");
@@ -99,7 +108,11 @@ public class Player extends GameEntity {
             worldCoordinates = camera.unproject(new Vector3(mouseX, mouseY, 0));
         }
         
-        
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            float mouseXx = Gdx.input.getX();
+            float mouseYy = Gdx.input.getY();
+            worldCoordinates = camera.unproject(new Vector3(mouseX, mouseY, 0));
+        }
 
 
         checkUserInput();
@@ -127,11 +140,11 @@ public class Player extends GameEntity {
         float weaponDistance = 2f; // Adjust as needed
         
         // Calculate the position of the weapon based on the player's position and direction towards the mouse
-        weaponX = body.getPosition().x + playerToMouse.x * weaponDistance;
-        weaponY = body.getPosition().y + playerToMouse.y * weaponDistance;
+        float weaponX = body.getPosition().x + playerToMouse.x * weaponDistance;
+        float weaponY = body.getPosition().y + playerToMouse.y * weaponDistance;
         
         // Calculate the angle between the player's position and the mouse position
-        angle = playerToMouse.angleRad();
+        float angle = playerToMouse.angleRad();
         
         // Set the transform of the weapon
         weapon.setTransform(weaponX, weaponY, angle);
@@ -203,56 +216,66 @@ public class Player extends GameEntity {
 
         // Update lastMovementLeft based on the current movement direction
         if (isMovingLeft) {
-            if(!weaponOut){
-                lastMovementLeft = true;
-            }
-        
+        lastMovementLeft = true;
         } else if (isMovingRight) {
-            if(!weaponOut){
-                lastMovementLeft = false;
-            }
+        lastMovementLeft = false;
+        }
+
+        // Calculate the angle between the character's position and the clicked position
+    float angle = MathUtils.atan2(worldCoordinates.y - y, worldCoordinates.x - x);
+
+    // Determine if the character should face left or right based on the angle
+    boolean isFacingLeft = (angle > MathUtils.PI / 2 || angle < -MathUtils.PI / 2);
         
-        }
-
-        float degrees = angle * (180.0f / (float)Math.PI);
-
-
-
         batch.begin();
-
-        // Draw the player texture at the calculated position, scaled down size
-        if (lastMovementLeft) {
-        batch.draw(playerT, textureX + 35, textureY-38, -75,75); // Flip the texture horizontally
-        } else {
-        batch.draw(playerT, textureX - 35, textureY - 38, 75, 75); // Normal drawing
+            if(weaponOut == false){
+            if (lastMovementLeft) {
+                batch.draw(player0, textureX + 65, textureY-42, -150,100); // Flip the texture horizontally
+                } else {
+                batch.draw(player0, textureX - 65, textureY - 42, 150,100); // Normal drawing
+                }
         }
-
-        if(weaponOut){
-            
-            batch.draw(swordT,
-            x,y-swordT.getHeight()/2f-20,   // Position
-            0, swordT.getHeight() / 2.0f,  // Origin set to the center of the texture
-            swordT.getWidth(), swordT.getHeight(),   // Full size of the texture
-            1f, 1f,   // No scale
-            degrees,   // 90 degrees rotation
-            0, 0,   // Starting at the top-left of the texture
-            swordT.getWidth(), swordT.getHeight(),  // Full texture
-            false, false);  // No flip
-
-            if(weapon.getPosition().x*PPM < x){
-                lastMovementLeft = true;
-            }
-            if(weapon.getPosition().x*PPM > x){
-                lastMovementLeft = false;
-            }
+        
+        if(weaponOut==true){
+            long elapsedTimeSinceWeaponOut = TimeUtils.timeSinceNanos(weaponOutStartTime);
+            if (elapsedTimeSinceWeaponOut < 120000000) {
+                if (isFacingLeft ) {
+                    batch.draw(player1, textureX +65, textureY-42, -150,100); // Flip the texture horizontally
+                    } else {
+                    batch.draw(player1, textureX - 65, textureY - 42, 150,100); // Normal drawing
+                    }
+            } else if (elapsedTimeSinceWeaponOut < 250000000) {
+                if (isFacingLeft) {
+                    batch.draw(player2, textureX + 65, textureY-42, -150,100); // Flip the texture horizontally
+                    } else {
+                    batch.draw(player2, textureX - 65, textureY - 42, 150,100); // Normal drawing
+                    }
+            } else if (elapsedTimeSinceWeaponOut < 350000000) {
+                if (isFacingLeft) {
+                    batch.draw(player3, textureX + 65, textureY-42, -150,100); // Flip the texture horizontally
+                    } else {
+                    batch.draw(player3, textureX - 65, textureY - 42, 150,100); // Normal drawing
+                    }
+            } else 
+                if (isFacingLeft) {
+                    batch.draw(player4, textureX +65, textureY-42, -150,100); // Flip the texture horizontally
+                    } else {
+                    batch.draw(player4, textureX - 65, textureY - 42, 150,100); // Normal drawing
+                    }
+                       
         }
+        
         batch.end();
+        
     }
+
+    
 
 
     public void createWeapon(){
         
         weaponOut = true;
+        weaponOutStartTime = TimeUtils.nanoTime();
         Body body = BodyHelperService.createBody(
             this.x + 100* playerDirection,
             this.y, 
@@ -276,7 +299,7 @@ public class Player extends GameEntity {
                 world.destroyBody(weapon);
                 weaponOut = false;
             }
-        }, 0.2f); // 2 seconds delay
+        }, 0.5f); // 2 seconds delay
         
 
        
@@ -290,7 +313,7 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
-        if (velX != 0 && isOnContact && framesGrounded%60 == 1) {
+        if (velX != 0 && isOnContact && framesGrounded%60 == 0) {
             SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
         } 
 
@@ -307,12 +330,6 @@ public class Player extends GameEntity {
                 }
             }
         }
-
-        if(!isOnContact && jumpCounter == 0){
-            framesGrounded = 0;
-            jumpCounter = 1;
-        }
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
             float force = body.getMass() * jumpForce;
         }
