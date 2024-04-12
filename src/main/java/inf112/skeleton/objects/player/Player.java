@@ -290,15 +290,15 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
- /*        if (velX != 0 && isOnContact && framesGrounded%60 == 1) {
+        if (velX != 0 && isOnContact && framesGrounded%60 == 1) {
             SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
-        }  */
+        } 
 
         if (isOnSlope && jumpCounter == 0) {
             jumpCounter = 1;
         }
 
-        if ((body.getLinearVelocity().y == 0 && framesGrounded != 5) ) {
+        if ((body.getLinearVelocity().y == 0) ) {
             framesGrounded++;
             if(framesGrounded == 5){
                 if (framesGrounded == 5) {
@@ -323,7 +323,7 @@ public class Player extends GameEntity {
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             framesGrounded = 0;
             jumpCounter++;
-            //SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Jump");
+            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Jump");
         }
         move();
     }
