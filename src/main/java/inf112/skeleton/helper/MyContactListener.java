@@ -62,7 +62,6 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
                 SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Attack");
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
-                
             }
         }
 
@@ -70,7 +69,6 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("goal") || fixtureB.getUserData().equals("goal")) {
                 gsm.push(new WinState(gsm));
-                
             }
         }
 
