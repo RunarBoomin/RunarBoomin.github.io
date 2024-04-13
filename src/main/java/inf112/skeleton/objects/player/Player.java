@@ -26,6 +26,7 @@ import inf112.skeleton.helper.SoundPlayer;
 import inf112.skeleton.helper.BodyHelperService;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
+import inf112.skeleton.helper.SoundPlayer;
 
 public class Player extends GameEntity {
     private Texture player0;
@@ -379,7 +380,7 @@ public class Player extends GameEntity {
 
     public void removeLife(){
         lifes -=1;
-        
+        SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("hurt");
         }

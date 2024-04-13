@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import inf112.skeleton.helper.SoundPlayer;
 
 import inf112.skeleton.states.PlayState;
 
@@ -67,6 +68,11 @@ public class Enemy extends GameEntity {
                     knockBack(x, y, playerPos, playerPosy);
                     life -= 1;
                     lastHitTime = currentTime;
+                    if (life == 0) {
+                        SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Death");
+                    } else {
+                        SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Damage");
+                    }
                 }
                 
 

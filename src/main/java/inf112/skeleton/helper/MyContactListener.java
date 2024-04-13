@@ -61,7 +61,6 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
                 SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Attack");
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
                 
             }
@@ -86,12 +85,10 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
                 
                 if(fixtureA.getUserData().equals("projectile")){
-                    //SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                     projFixture = fixtureA;
                 }
                 if(fixtureB.getUserData().equals("projectile")){
                     projFixture = fixtureB;
-                    //SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
             }
         } 
@@ -102,14 +99,12 @@ public class MyContactListener implements ContactListener {
                 
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
                 if(fixtureA.getUserData().equals("projectile")){
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
                     projFixture = fixtureA;
-                }
-                if(fixtureB.getUserData().equals("projectile")){
                     SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
+                }
+                if(fixtureB.getUserData().equals("projectile")){                   
                     projFixture = fixtureB;
+                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                
             }
@@ -137,11 +132,9 @@ public class MyContactListener implements ContactListener {
             // Handle button click event here
             if(fixtureA.getUserData().equals("enemy")){
                 enemyHurt = fixtureA;
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Damage");
             }
             if(fixtureB.getUserData().equals("enemy")){
                 enemyHurt = fixtureB;
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Damage");
                 
             }
             
