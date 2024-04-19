@@ -84,3 +84,20 @@ Oppmøte: Marius, Runar, Tommy, Karsten, Viktor
 * Viste fram bruk av HP og enemies.
 * Lydar og lydspelar er lagt til.
 * Attack er lagt til.
+
+## Møte 12.04.2024 
+
+Oppmøte: Marius, Runar, Tommy, Karsten, Viktor
+
+* Møte via discord
+* Viste fram spelet
+* Diskuterte litt ang shopkeeper
+* Snakka om endelege versjon av Oblig3
+
+## Møte 19.04.2024
+
+Oppmøte: Marius, Runar, Tommy, Viktor
+
+* Møte via discord
+* Viste fram spelet
+* Delegerer kven som skal lage kva testar
