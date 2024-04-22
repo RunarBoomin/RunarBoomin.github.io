@@ -139,16 +139,17 @@ public class MyContactListener implements ContactListener {
         });
     }
     private void getGroundAngle(Contact contact) {
-        // Get the fixtures involved in the contact
         Fixture playerFixture = contact.getFixtureA().getUserData().equals("player") ? contact.getFixtureA() : contact.getFixtureB();
         Fixture groundFixture = contact.getFixtureA().getUserData().equals("slope") ? contact.getFixtureA() : contact.getFixtureB();
 
-        // Get the direction vector from the player body to the ground 
-        Vector2 playerToGround = new Vector2(groundFixture.getBody().getPosition()).sub(playerFixture.getBody().getPosition());
+        // Ensure that the bodies associated with the fixtures are not null
+        if (playerFixture.getBody() != null && groundFixture.getBody() != null) {
+            // Get the direction vector from the player body to the ground 
+            Vector2 playerToGround = new Vector2(groundFixture.getBody().getPosition()).sub(playerFixture.getBody().getPosition());
 
-        // Calculate the ground angle
-        groundAngle = playerToGround.angleRad();
-        
+            // Calculate the ground angle
+            groundAngle = playerToGround.angleRad();
+        }
     }
 
     @Override
