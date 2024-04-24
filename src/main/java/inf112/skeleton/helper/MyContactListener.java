@@ -61,9 +61,7 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
                 SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Attack");
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
-                
             }
         }
 
@@ -71,7 +69,6 @@ public class MyContactListener implements ContactListener {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("goal") || fixtureB.getUserData().equals("goal")) {
                 gsm.push(new WinState(gsm));
-                
             }
         }
 
@@ -86,12 +83,10 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
                 
                 if(fixtureA.getUserData().equals("projectile")){
-                    //SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                     projFixture = fixtureA;
                 }
                 if(fixtureB.getUserData().equals("projectile")){
                     projFixture = fixtureB;
-                    //SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
             }
         } 
@@ -102,14 +97,12 @@ public class MyContactListener implements ContactListener {
                 
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
                 if(fixtureA.getUserData().equals("projectile")){
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
                     projFixture = fixtureA;
-                }
-                if(fixtureB.getUserData().equals("projectile")){
                     SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
+                }
+                if(fixtureB.getUserData().equals("projectile")){                   
                     projFixture = fixtureB;
+                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                
             }
@@ -137,27 +130,26 @@ public class MyContactListener implements ContactListener {
             // Handle button click event here
             if(fixtureA.getUserData().equals("enemy")){
                 enemyHurt = fixtureA;
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Damage");
             }
             if(fixtureB.getUserData().equals("enemy")){
                 enemyHurt = fixtureB;
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Damage");
                 
             }
             
         });
     }
     private void getGroundAngle(Contact contact) {
-        // Get the fixtures involved in the contact
         Fixture playerFixture = contact.getFixtureA().getUserData().equals("player") ? contact.getFixtureA() : contact.getFixtureB();
         Fixture groundFixture = contact.getFixtureA().getUserData().equals("slope") ? contact.getFixtureA() : contact.getFixtureB();
 
-        // Get the direction vector from the player body to the ground 
-        Vector2 playerToGround = new Vector2(groundFixture.getBody().getPosition()).sub(playerFixture.getBody().getPosition());
+        // Ensure that the bodies associated with the fixtures are not null
+        if (playerFixture.getBody() != null && groundFixture.getBody() != null) {
+            // Get the direction vector from the player body to the ground 
+            Vector2 playerToGround = new Vector2(groundFixture.getBody().getPosition()).sub(playerFixture.getBody().getPosition());
 
-        // Calculate the ground angle
-        groundAngle = playerToGround.angleRad();
-        
+            // Calculate the ground angle
+            groundAngle = playerToGround.angleRad();
+        }
     }
 
     @Override

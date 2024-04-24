@@ -21,17 +21,7 @@ Står for animering og teksturar. Lager desse sjølv. (Imponerande) Skal også h
 
 ### Trenger vi andre roller?
 
-
-Produktutviklar:
-Ein som tek ansvar for at koden er funksjonell, lett å lese og lett å skrive.
-
-Klassediagramskapar:
-Ein som kan ordne med klassediagram som skal lagast for kvar oblig.
-
-
-Obligskribent:
-Ein som har hovudansvar for å skrive obligtekstane.
-
+Ikkje no.
 
 ### Har vi erfaringer team-messig eller mtp prosjektmetodikk som er verdt å nevne? 	
 Vi har lite erfaring team-messig, så nei. 
@@ -156,12 +146,12 @@ Spelet er snart ferdig. Vi har hatt ei jamn arbeidsmengde på alle, og folk har 
 Alt er klart, vi manglar berre fleire kart.
 
 ### Bugs
-* Entities som er døde forsvinn ikkje grafisk, sjølv om dei ikkje kan ha innvirkning på spelaren. Resolution er ikkje dynamisk etter kva skjerm du brukar.
+* Bugs vi veit om er fiksa 13.04.24.
 
 
 ### Prioriteringer framover
 
-Lage testar for å auke dekningsgrad. Lage nye kart/forlenge det vi har. Fikse bugs.
+Lage testar for å auke dekningsgrad. Lage nye kart/forlenge det vi har.
 
 ### Brukerhistorier, akseptansekriterier og arbeidsoppgaver til neste innlevering (foreløpig liste)
 
