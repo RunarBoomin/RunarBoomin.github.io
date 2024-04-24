@@ -68,7 +68,7 @@ public class Player extends GameEntity {
     Vector3 worldCoordinates = new Vector3();
     private Texture weaponTexture;
     private long weaponOutStartTime = 0;
-    
+    int countertest = 0;
 
     public Player(float width, float height, Body body, OrthographicCamera camera) {
         super(width, height, body);
@@ -99,6 +99,7 @@ public class Player extends GameEntity {
     @Override
     public void update() {
  
+        
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
 
@@ -313,7 +314,10 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
-        if (velX != 0 && isOnContact && framesGrounded%60 == 0) {
+        
+        if (velX != 0 && isOnContact && framesGrounded%30 == 0 && framesGrounded>5) {
+            countertest ++;
+            System.out.println(countertest);
             SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
         } 
 
@@ -330,6 +334,12 @@ public class Player extends GameEntity {
                 }
             }
         }
+
+        if (!isOnContact && jumpCounter == 0) {
+            jumpCounter = 1;
+            framesGrounded = 0;
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
             float force = body.getMass() * jumpForce;
         }

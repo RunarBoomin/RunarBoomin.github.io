@@ -164,8 +164,6 @@ public class PlayState extends State{
             
             gap+= heartTexture.getWidth()/4;
         }
-        
-        
     }
  
     
@@ -214,13 +212,7 @@ public class PlayState extends State{
         enemies.add(goal);
     }
 
-    // public void setEnemy(Enemy enemy){
-    //     this.enemy = enemy;
-    // }
 
-    // public Enemy getEnemy(){
-    //     return enemy;
-    // }
   
     
 
