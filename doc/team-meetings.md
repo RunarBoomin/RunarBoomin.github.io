@@ -104,7 +104,7 @@ Oppmøte: Marius, Runar, Tommy, Viktor
 
 ## Møte 19.04.2024
 
-Oppmøte: Marius, Runar
+Oppmøte: Marius, Runar, Tommy
 
 * Møte via discord
 * Viste fram spelet
