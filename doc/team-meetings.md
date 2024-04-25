@@ -101,3 +101,12 @@ Oppmøte: Marius, Runar, Tommy, Viktor
 * Møte via discord
 * Viste fram spelet
 * Delegerer kven som skal lage kva testar
+
+## Møte 19.04.2024
+
+Oppmøte: Marius, Runar
+
+* Møte via discord
+* Viste fram spelet
+* Snakka om å endre static metodar
+* Prata om framgang med testar
