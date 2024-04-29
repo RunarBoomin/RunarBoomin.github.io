@@ -15,6 +15,7 @@ import static inf112.skeleton.helper.Constants.width;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static inf112.skeleton.helper.Constants.height;
 
@@ -32,7 +33,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-
+import inf112.skeleton.helper.BodyHelperService;
+import inf112.skeleton.helper.FileFactory;
+import inf112.skeleton.helper.FileFactoryImpl;
 import inf112.skeleton.helper.MyContactListener;
 import inf112.skeleton.helper.TileMapHelper;
 import inf112.skeleton.objects.player.Enemy;
@@ -41,10 +44,15 @@ import inf112.skeleton.objects.player.GameEntity;
 import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.helper.SoundPlayer;
+import inf112.skeleton.helper.SoundPlayer.AudioSystemWrapper;
 
 
 
 public class PlayState extends State{
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    Random random = new Random();
+    FileFactory fileFactory = new FileFactoryImpl(); 
+    SoundPlayer soundPlayer = new SoundPlayer(audioSystemWrapper, random, fileFactory);
     
     private SpriteBatch batch;
     private World world;
@@ -52,6 +60,7 @@ public class PlayState extends State{
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
+    private BodyHelperService bodyHelperService;
 
     BitmapFont font;
     int fpsCounter;
@@ -75,8 +84,8 @@ public class PlayState extends State{
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0,-5f), false);
         this.box2dDebugRenderer = new Box2DDebugRenderer();
+        this.bodyHelperService = bodyHelperService;
         playerTexture = new Texture("images/background.jpg");
-      
 
         this.shops = new ArrayList<>();
         
@@ -90,7 +99,7 @@ public class PlayState extends State{
     } 
 
     public void createMap(String filename){
-        this.tileMapHelper = new TileMapHelper(this,filename);
+        this.tileMapHelper = new TileMapHelper(this,filename, PPM);
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
     }
 
@@ -122,7 +131,7 @@ public class PlayState extends State{
 
     public void playerOnScreen(){
         if((player.getBody().getPosition().y * PPM) < cam.position.y - (height/2) - 50){
-            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Fall");
+            soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Fall");
             gsm.push(new DeathState(gsm));
         }
         

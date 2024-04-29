@@ -1,73 +1,76 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.helper.SoundPlayer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.file.Path;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import java.util.Random;
 
-class SoundPlayerTest {
+import javax.sound.sampled.*;
 
-    @TempDir
-    Path tempDir;
+import inf112.skeleton.helper.FileFactory;
+import inf112.skeleton.helper.SoundPlayer;
 
-    @Test
-    void testPlaySound() {
-        try (MockedStatic<AudioSystem> mocked = Mockito.mockStatic(AudioSystem.class)) {
-            Clip mockClip = mock(Clip.class);
-            AudioInputStream mockStream = mock(AudioInputStream.class);
+public class SoundPlayerTest {
+    private SoundPlayer soundPlayer;
+    private SoundPlayer.AudioSystemWrapper audioSystemWrapper;
+    private Random random;
+    private FileFactory fileFactory;
+    private Clip clip;
+    private AudioInputStream audioInputStream;
 
-            mocked.when(AudioSystem::getClip).thenReturn(mockClip);
+    @BeforeEach
+    void setUp() throws Exception {
+        audioSystemWrapper = mock(SoundPlayer.AudioSystemWrapper.class);
+        random = mock(Random.class);
+        fileFactory = mock(FileFactory.class);
+        soundPlayer = new SoundPlayer(audioSystemWrapper, random, fileFactory);
+        clip = mock(Clip.class);
+        audioInputStream = mock(AudioInputStream.class);
 
-            doNothing().when(mockClip).open(mockStream);
-            doNothing().when(mockClip).start();
-
-            // Call the method under test
-            SoundPlayer.playSound("somepath", "test.wav");
-
-            // Verify the behaviors
-            verify(mockClip).open(mockStream);
-            verify(mockClip).start();
-        } catch (LineUnavailableException | IOException e) {
-            fail("No exception should be thrown");
-        }
-    }
-
-    static class AudioSystemMocker {
-        void mockGetClip(Clip clip) throws LineUnavailableException {
-            try (MockedStatic<AudioSystem> mocked = Mockito.mockStatic(AudioSystem.class)) {
-                mocked.when(AudioSystem::getClip).thenReturn(clip);
-            }
-        }
+        when(audioSystemWrapper.getClip()).thenReturn(clip);
     }
 
     @Test
-    void testPlayRandomSound_NoFiles() {
-        File mockFolder = mock(File.class);
-        when(mockFolder.exists()).thenReturn(true);
-        when(mockFolder.isDirectory()).thenReturn(true);
-        // Specify FilenameFilter explicitly if ambiguity arises
-        when(mockFolder.listFiles((FilenameFilter) (dir, name) -> name.endsWith(".wav"))).thenReturn(new File[0]);
+    void testPlayRandomSoundWithFiles() throws Exception {
+        String folderPath = "sounds";
+        File folder = mock(File.class);  // Mocking File
+        when(fileFactory.createFile(folderPath)).thenReturn(folder);
+        when(folder.exists()).thenReturn(true);
+        when(folder.isDirectory()).thenReturn(true);
 
-        System.setOut(new java.io.PrintStream(new java.io.OutputStream() {
-            @Override
-            public void write(int b) {
-                // do nothing
-            }
-        }));
+        File[] files = {new File("sound1.wav"), new File("sound2.wav")};
+        when(fileFactory.listFiles(eq(folder), argThat(filter -> filter.accept(folder, "sound1.wav") || filter.accept(folder, "sound2.wav")))).thenReturn(files);
 
-        SoundPlayer.playRandomSound(mockFolder.getAbsolutePath());
+        when(random.nextInt(anyInt())).thenReturn(0);
+        when(audioSystemWrapper.getAudioInputStream(any(File.class))).thenReturn(audioInputStream);
 
-        verify(mockFolder, times(1)).listFiles(any(FilenameFilter.class));
+        soundPlayer.playRandomSound(folderPath);
+
+        verify(fileFactory).listFiles(eq(folder), argThat(filter -> filter.accept(folder, "sound1.wav") || filter.accept(folder, "sound2.wav")));
+        verify(audioSystemWrapper).getAudioInputStream(any(File.class));
+        verify(clip).open(audioInputStream);
+        verify(clip).start();
+    }
+
+    @Test
+    void testPlayRandomSoundNoFiles() throws Exception {
+        String folderPath = "sounds";
+        File folder = new File(folderPath);
+        File[] files = new File[0];
+
+        when(fileFactory.createFile(folderPath)).thenReturn(folder);
+        when(fileFactory.listFiles(any(File.class), any(FilenameFilter.class))).thenReturn(files);
+
+        soundPlayer.playRandomSound(folderPath);
+
+        verify(random, never()).nextInt(anyInt());
+        verify(audioSystemWrapper, never()).getAudioInputStream(any(File.class));
+        verify(clip, never()).open(any(AudioInputStream.class));
+        verify(clip, never()).start();
     }
 }

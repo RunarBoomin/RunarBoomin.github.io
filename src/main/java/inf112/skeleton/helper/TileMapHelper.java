@@ -25,14 +25,18 @@ import inf112.skeleton.objects.player.Player;
 import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.objects.player.Goal;
 import inf112.skeleton.states.PlayState;
+
+
 public class TileMapHelper {
     private TiledMap tiledMap;
-    private PlayState playstate;
+    private PlayState playState;
     private String filename;
+    private BodyHelperService bodyHelperService;
     
-    public TileMapHelper(PlayState playstate, String filename){
-        this.playstate = playstate;
+    public TileMapHelper(PlayState playState, String filename, float ppm) {
+        this.playState = playState;
         this.filename = filename;
+        this.bodyHelperService = new BodyHelperService(ppm);
     }
 
     public OrthogonalTiledMapRenderer setupMap(){
@@ -70,30 +74,30 @@ public class TileMapHelper {
 
     private void createGameEntity(Rectangle rectangle, String rectangleName, String name, float scaleWidth, float scaleHeight){
         if(rectangleName != null && rectangleName.equals(name)){
-            Body body = BodyHelperService.createBody(
+            Body body = bodyHelperService.createBody(
                 rectangle.getX() + rectangle.getWidth() / 2,
                 rectangle.getY() + rectangle.getHeight()/2, 
                 rectangle.getWidth() * scaleWidth, 
                 rectangle.getHeight() * scaleHeight, 
                 false, 
-                playstate.getWorld()
+                playState.getWorld()
             );
 
             if(name == "player"){
-                playstate.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getCamera()));
+                playState.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body, playState.getCamera(), bodyHelperService));
             }
 
             if(name == "enemy"){
-                playstate.addEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getWorld()));
+                playState.addEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body, playState.getWorld()));
             }
             if(name == "enemy2"){
-                playstate.addEnemy(new Enemy2(rectangle.getWidth(), rectangle.getHeight(), body, playstate.getWorld()));
+                playState.addEnemy(new Enemy2(rectangle.getWidth(), rectangle.getHeight(), body, playState.getWorld(), bodyHelperService));
             }
             if (name == "keeper") {
-                playstate.addShop(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body));
+                playState.addShop(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body));
             }
             if (name == "goal") {
-                playstate.addGoal(new Goal(rectangle.getWidth(), rectangle.getHeight(), body));
+                playState.addGoal(new Goal(rectangle.getWidth(), rectangle.getHeight(), body));
             }
             
         }
@@ -102,7 +106,7 @@ public class TileMapHelper {
     private void createStaticBody(PolygonMapObject polygonMapObject, String userData){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        Body body = playstate.getWorld().createBody(bodyDef);
+        Body body = playState.getWorld().createBody(bodyDef);
         Shape shape = createPolygonShape(polygonMapObject);
         Fixture fixture = body.createFixture(shape, 1000);
     
@@ -127,11 +131,11 @@ public class TileMapHelper {
 
     private void clearWorldBodies() {
         Array<Body> bodies = new Array<Body>();
-        playstate.getWorld().getBodies(bodies);
+        playState.getWorld().getBodies(bodies);
         
         for (Body body : bodies) {
             // Check if the body is not the player body    
-            playstate.getWorld().destroyBody(body);
+            playState.getWorld().destroyBody(body);
             
         }
     }

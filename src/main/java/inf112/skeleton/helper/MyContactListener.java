@@ -1,21 +1,17 @@
 package inf112.skeleton.helper;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-import inf112.skeleton.objects.player.Player;
-import inf112.skeleton.states.DeathState;
+import inf112.skeleton.helper.SoundPlayer.AudioSystemWrapper;
 import inf112.skeleton.states.GameStateManager;
 import inf112.skeleton.states.PlayState;
 import inf112.skeleton.states.WinState;
-import inf112.skeleton.states.MenuState;
-import inf112.skeleton.states.PlayState;
-import java.io.File;
+import java.util.Random;
 
 
 
@@ -23,7 +19,10 @@ import java.io.File;
 // Define a contact listener class
 public class MyContactListener implements ContactListener {
     public static boolean isOnContact;
-
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    Random random = new Random();
+    FileFactory fileFactory = new FileFactoryImpl(); 
+    SoundPlayer soundPlayer = new SoundPlayer(audioSystemWrapper, random, fileFactory);
 
     public static Fixture projFixture;
     public static Fixture enemyHurt;
@@ -60,7 +59,7 @@ public class MyContactListener implements ContactListener {
         if (fixtureA.getUserData().equals("player") || fixtureB.getUserData().equals("player")) {
             // Check if the other fixture is the ground
             if (fixtureA.getUserData().equals("enemy") || fixtureB.getUserData().equals("enemy")) {
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Attack");
+                soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Enemy\\Attack");
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
             }
         }
@@ -98,11 +97,11 @@ public class MyContactListener implements ContactListener {
                 ((PlayState)gsm.getState()).getPlayer().removeLife();
                 if(fixtureA.getUserData().equals("projectile")){
                     projFixture = fixtureA;
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
+                    soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                 if(fixtureB.getUserData().equals("projectile")){                   
                     projFixture = fixtureB;
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
+                    soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                
             }
@@ -116,11 +115,11 @@ public class MyContactListener implements ContactListener {
                 
                 if(fixtureA.getUserData().equals("projectile")){
                     projFixture = fixtureA;
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
+                    soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                 if(fixtureB.getUserData().equals("projectile")){
                     projFixture = fixtureB;
-                    SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
+                    soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\MissileExp");
                 }
                
             }
