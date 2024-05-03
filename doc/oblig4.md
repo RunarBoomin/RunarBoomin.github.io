@@ -1,9 +1,6 @@
 # Rapport – innlevering 4
 **Team:** *Snille menn* – *Runar, Tommy, Viktor, Marius*
 
-### Hvordan fungerer rollene i teamet? 
-Rollene fungerer betre enn Oblig2. Vi har fullført det viktigaste med spelet, og folk har våre meir aktive på discord. 
-
 #### Runar: TEAMLEAD, Kommunikasjonsansvarlig og Obligskribent
 Ansvar for at vi held oss til tidsfrister og at oppgåver blir kommunisert innad i gruppa. Tek avgjerder for gruppa dersom nødvendig. 
 
@@ -226,7 +223,7 @@ for eit prosjekt.
 9. Start-skjerm ved oppstart / game over
 
 ### Bugs
-* Bugs vi veit om er fiksa 13.04.24.
+* Footsteps spelar opp på kvarandre
 
 
 
