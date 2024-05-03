@@ -37,12 +37,27 @@ Spelet er ferdig. Vi har laga eit spel som fungerer.
 Vi har laga ein platformer uten noko inspirasjon. Det er eit kart, der du skal klare å hoppe opp til ei prinsesse uten å dø. På vegen opp må ein passe seg for å ikkje dette ned frå mappen, missilar og spøkelse. Spelaren kan drepe spøkelse
 og øydelegge missilar ved å slå dei. Ein kan hoppe to gonger på rad så sant ein ikkje er borti ein slope. 
 
+## Velg og tilpass en prosess for teamet
+
+Vi har i utgangspunktet hatt eit møte kvar veke (tirsdag kl 10:00 eller 12:00), og ved behov har vi hatt eit ekstra møte i veka.
+Så har vi brukt discord-chatten vår til å planlegge/endre tidspunkt om det ikkje skulle passe for nokon og når det var behov for fleire møter.
+Discord har også blitt brukt til å dele nyttig informasjon og beskjeder.
+
+Vi har fordelt arbeidsoppgaver i møtene utifra kva som møtte gjerast for å drive prosjektet framover.
+
+Alt av kode og dokumenter er samla på gitlab.
+Dokumentasjon som møte-referat(team-meetings.md) og klassediagram(klassediagram.png) er i 'doc' folderen.
+
+Det har blitt en del individuelt arbeid siden vi har hatt ganske få møter, men når vi har hatt møter har vi tatt opp problemer med koden og løst det felles.
+Dette har gitt gruppemedlemmene mye frihet og fleksibilitet til å arbeide med prosjektet til eget tidsskjema frem til kommende møter.
+Samtidig har dette gjort prosjektet mer uoversiktelig enn det trengte å være.
+
 ## Beskrivelse av innholdet i spillet
 
 - Spelfigur som kan bevege seg todimensjonelt i alle retningar.
 
 - Todimensjonal verden:
- - Vi ser inn på karakteren vår frå sida
+ - Sidescrolling-perspektiv - Vi ser inn på karakteren vår frå sida
  - Eit område spelaren kan bevege seg innafor, avgrensa av veggar
  - Laga i eit rutenett oppdelt i blokker
  - Enkelte blokker vil ha ei innvirkning på spelaren si evne til å bevege seg (slopes)
