@@ -7,8 +7,9 @@ Test 1:
 
 1. Kjør programmet fra Main.java
 2. Klikk på knappen som viser 'Play'
-3. Trykk på Esc-knappen på tastaturet dittResultat:Å klikke på spill-knappen skal starte spillet
-4. Å trykke på Esc skal avslutte spillet
+3. Trykk på Esc-knappen på tastaturet ditt
+Resultat:Å klikke på spill-knappen skal starte spillet
+Å trykke på Esc skal avslutte spillet
 
 ## Test 2:
 
@@ -34,12 +35,14 @@ Test:
 3. Trykk på tasten 'd'
 4. Trykk på tasten 'a'
 5. Trykk på tasten 'w'
-6. Trykk på venstre museknapp
+6. Trykk på tasten 's'
+7. Trykk på venstre museknapp
 Resultat:
 Å trykke på tasten 'a' får spilleren til å bevege seg til venstre
 Å trykke på tasten 'd' får spilleren til å bevege seg til høyre
 Å trykke på tasten 'w' får spilleren til å hoppe
-Etter hopping kommer spilleren ned til bakken igjen.
+Å trykke på tasten 's' får spilleren til å gå fortere ned igjen mot bakken
+Etter hopping kommer spilleren ned til bakken igjen
 Å trykke på venstre museknapp starter angrepsanimasjonen
 ---
 
