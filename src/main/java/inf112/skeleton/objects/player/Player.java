@@ -7,15 +7,11 @@ import static inf112.skeleton.helper.MyContactListener.isOnSlope;
 
 import java.util.Random;
 
-import org.w3c.dom.Text;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -29,7 +25,6 @@ import inf112.skeleton.helper.SoundPlayer.AudioSystemWrapper;
 import inf112.skeleton.helper.BodyHelperService;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
-import inf112.skeleton.helper.SoundPlayer;
 import inf112.skeleton.helper.FileFactory;
 import inf112.skeleton.helper.FileFactoryImpl;
 
@@ -51,8 +46,6 @@ public class Player extends GameEntity {
    
     private float slideForceMagnitude = 1.0f;
     private int lifes = 3;
-    private long lastJumpTime = 0;
-    private static final long JUMP_COOLDOWN = 3000; // 3 seconds in milliseconds
 
     private World world;
 
@@ -64,17 +57,11 @@ public class Player extends GameEntity {
     private boolean attacking = false;
     private float attackSpeed = 1f;
 
-    private float mouseX;
-    private float mouseY;
-
-    private Texture test;
-
     private OrthographicCamera camera;
 
     private BodyHelperService bodyHelperService;
 
     Vector3 worldCoordinates = new Vector3();
-    private Texture weaponTexture;
     private long weaponOutStartTime = 0;
 
     AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
@@ -87,7 +74,6 @@ public class Player extends GameEntity {
         super(width, height, body);
         this.speed = 5f;
         this.jumpCounter = 0;
-        test = new Texture("images/title.png");
         this.camera = camera;
         this.wallet = 100;
         this.maxJumps = 2;
@@ -123,8 +109,6 @@ public class Player extends GameEntity {
         }
         
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            float mouseXx = Gdx.input.getX();
-            float mouseYy = Gdx.input.getY();
             worldCoordinates = camera.unproject(new Vector3(mouseX, mouseY, 0));
         }
 
@@ -343,9 +327,6 @@ public class Player extends GameEntity {
                     
                 }
             }
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
-            float force = body.getMass() * jumpForce;
         }
         
         if (Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < 2) {

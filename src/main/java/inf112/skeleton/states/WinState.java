@@ -47,7 +47,6 @@ public class WinState extends State {
         sb.begin();
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY(); // Flip Y coordinate
-        Texture test = new Texture("images/frame5.png");
         Texture win = new Texture("images/win.png");
         /* sb.draw(test, width/2-test.getWidth()/2, height/4, test.getWidth(), test.getHeight()); */
         sb.draw(win, width/2-win.getWidth()/2, height/2 + 100, win.getWidth(), win.getHeight());

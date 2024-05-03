@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.objects.player.Enemy;
 import inf112.skeleton.objects.player.Enemy2;
 import inf112.skeleton.objects.player.Player;
-import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.objects.player.Goal;
 import inf112.skeleton.states.PlayState;
 
@@ -46,7 +45,7 @@ public class TileMapHelper {
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
 
-    private void parseMapObjects(MapObjects mapObjects){
+    public void parseMapObjects(MapObjects mapObjects){
         for(MapObject mapObject : mapObjects){
             
             if(mapObject instanceof PolygonMapObject){
@@ -92,9 +91,6 @@ public class TileMapHelper {
             }
             if(name == "enemy2"){
                 playState.addEnemy(new Enemy2(rectangle.getWidth(), rectangle.getHeight(), body, playState.getWorld(), bodyHelperService));
-            }
-            if (name == "keeper") {
-                playState.addShop(new ShopKeeper(rectangle.getWidth(), rectangle.getHeight(), body));
             }
             if (name == "goal") {
                 playState.addGoal(new Goal(rectangle.getWidth(), rectangle.getHeight(), body));
