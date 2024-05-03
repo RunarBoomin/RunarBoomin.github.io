@@ -1,11 +1,11 @@
-# INF112 Project – *Platformer*
+# INF112 Project – *Lady Castle*
 
-* Team: *Snille menn* (Gruppe 4): *Runar, Karsten, Tommy, Viktor, Marius, Borgar*
+* Team: *Snille menn* (Gruppe 4): *Runar, Tommy, Viktor, Marius*
 * Lenke til GitLab/Trello/etc.
 
 ## Om spillet
-*«Geir-Roger har veldig lyst på dame, men det er bare ett problem. Han tar informasjonsteknologi! (Hvor er damene?!)*
-*Finn roser, sjokolade og Starbucks latte for å rømme fra realfagsbygget og finne en ekte dame. Og hugs, ikke bli lurt av falske damer!»*
+*«Geir-Roger har veldig lyst på dame, men det er bare ett problem. Damene er i toppen av eit tårn omringa av skumle spøkelser!»*
+*Hopp til toppen for å vinne kjærleiken, men pass på for missilar og spøkelser. Når du først har begynt er det for seint å hoppe ned igjen.»*
 
 ## Kjøring
 * Kompileres med `mvn package`.
@@ -13,7 +13,7 @@
 * Krever Java 21 eller senere
 
 ## Kjente feil
-Geir-Roger eksisterer ikke.
+Lyden av å gå spelar av litt vel ofte til tider.
 
 ## Credits
 Snille menn
