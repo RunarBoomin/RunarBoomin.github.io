@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="200" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="160">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="200" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="183">
  <tileset firstgid="1" source="cs_tiles.tsx"/>
  <tileset firstgid="101" source="tiles.tsx"/>
  <tileset firstgid="201" source="stone.tsx"/>
@@ -164,12 +164,12 @@
 207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,8,203,203,203,203,203,203,203,203,207,
+207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,203,203,203,203,203,203,203,203,19,207,
 207,203,203,203,203,203,203,203,203,203,203,203,10,10,207,
-207,203,203,203,203,203,203,203,203,203,17,17,17,17,207,
+207,203,203,203,203,203,203,203,203,203,17,17,17,18,207,
 207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
-207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
-207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
+207,203,203,203,9,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,203,203,203,203,203,203,203,203,203,207,
 207,203,203,203,203,203,201,205,203,203,203,203,203,203,207,
@@ -261,9 +261,6 @@
   <object id="81" name="enemy" x="708" y="11700" width="65.3333" height="62.6667"/>
   <object id="82" name="enemy" x="702.667" y="10622.7" width="64" height="64"/>
   <object id="83" name="enemy" x="558" y="12602" width="65.3333" height="62.6667"/>
-  <object id="92" name="ground" x="640" y="10368">
-   <polygon points="0,0 0,-64 256,-64 256,0"/>
-  </object>
   <object id="93" name="ground" x="192" y="9920">
    <polygon points="0,0 -128,0 -128,64 0,64"/>
   </object>
@@ -288,12 +285,6 @@
   <object id="113" name="enemy2" x="3.33333" y="8208" width="60" height="64"/>
   <object id="117" name="goal" x="770.667" y="7872" width="64" height="64"/>
   <object id="119" name="enemy" x="562" y="7923.33" width="65.3333" height="62.6667"/>
-  <object id="142" name="ground" x="832" y="10176">
-   <polygon points="0,0 64,0 64,128 0,128"/>
-  </object>
-  <object id="143" name="ground" x="768" y="10240">
-   <polygon points="0,0 64,0 64,64 0,64"/>
-  </object>
   <object id="144" name="ground" x="320" y="10112">
    <polygon points="0,0 64,0 64,64 0,64"/>
   </object>
@@ -303,29 +294,65 @@
   <object id="146" name="ground" x="832" y="9152">
    <polygon points="0,0 64,0 64,64 0,64 0,0"/>
   </object>
-  <object id="152" name="ground" x="448" y="12224">
-   <polygon points="0,0 128,0 192,64 192,128 -128,128"/>
+  <object id="163" name="slope" x="576" y="12224">
+   <polygon points="0,0 0,64 64,64"/>
   </object>
-  <object id="153" name="ground" x="128" y="11968">
-   <polygon points="0,0 0,-128 -64,-192 -64,0"/>
+  <object id="164" name="ground" x="636" y="12349.3">
+   <polygon points="0,0 4,-61.3333 -60,-61.3333 -60,-125.333 -188,-125.333 -188,-61.3333 -252,-61.3333 -252,2.66667"/>
   </object>
-  <object id="154" name="ground" x="512" y="11520">
-   <polygon points="0,0 128,0 128,-64 64,-64"/>
+  <object id="165" name="slope" x="448" y="12224">
+   <polygon points="0,0 0,64 -64,64 -64,128 -128,128"/>
   </object>
-  <object id="155" name="ground" x="512" y="11136">
-   <polygon points="0,0 384,0 384,-64 64,-64 0,0"/>
+  <object id="166" name="slope" x="128" y="11840">
+   <polygon points="0,0 -64,0 -64,-64"/>
   </object>
-  <object id="156" name="ground" x="384" y="10752">
+  <object id="167" name="ground" x="128" y="11840">
+   <polygon points="0,0 0,128 -64,128 -64,0"/>
+  </object>
+  <object id="168" name="slope" x="576" y="11456">
+   <polygon points="0,0 0,64 -64,64 0,0"/>
+  </object>
+  <object id="169" name="ground" x="576" y="11456">
+   <polygon points="0,0 64,0 64,64 0,64"/>
+  </object>
+  <object id="170" name="slope" x="512" y="11136">
+   <polygon points="0,0 64,0 64,-64"/>
+  </object>
+  <object id="171" name="ground" x="576" y="11072">
+   <polygon points="0,0 320,0 320,64 0,64"/>
+  </object>
+  <object id="172" name="slope" x="384" y="10752">
    <polygon points="0,0 128,0 64,-64"/>
   </object>
-  <object id="157" name="ground" x="320" y="9728">
-   <polygon points="0,0 256,0 256,-64 64,-64"/>
+  <object id="173" name="slope" x="384" y="9728">
+   <polygon points="0,0 0,-64 -64,0"/>
   </object>
-  <object id="158" name="ground" x="192" y="8832">
-   <polygon points="0,0 -128,0 -128,-64 -64,-64"/>
+  <object id="174" name="ground" x="384" y="9664">
+   <polygon points="0,0 0,64 192,64 192,0"/>
   </object>
-  <object id="159" name="ground" x="448" y="8576">
-   <polygon points="0,0 448,0 448,-64 64,-64"/>
+  <object id="175" name="slope" x="192" y="8832">
+   <polygon points="0,0 -64,-64 -64,0"/>
+  </object>
+  <object id="176" name="ground" x="128" y="8768">
+   <polygon points="0,0 0,64 -64,64 -64,0"/>
+  </object>
+  <object id="177" name="slope" x="512" y="8512">
+   <polygon points="0,0 0,64 -64,64"/>
+  </object>
+  <object id="178" name="ground" x="512" y="8512">
+   <polygon points="0,0 384,0 384,64 0,64"/>
+  </object>
+  <object id="179" name="ground" x="640" y="10432">
+   <polygon points="0,0 256,0 256,-64 0,-64"/>
+  </object>
+  <object id="180" name="ground" x="768" y="10368">
+   <polygon points="0,0 0,-64 128,-64 128,0 64,0"/>
+  </object>
+  <object id="181" name="ground" x="832" y="10304">
+   <polygon points="0,0 0,-64 64,-64 64,0"/>
+  </object>
+  <object id="182" name="ground" x="256" y="10496">
+   <polygon points="0,0 0,64 64,64 64,0"/>
   </object>
  </objectgroup>
 </map>
