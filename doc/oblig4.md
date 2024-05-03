@@ -35,6 +35,59 @@ Kommunikasjonen har våre tilfredsstillande frå dei som har tatt del i prosjekt
 ### Kort retrospektiv om hva som er bra og hva som kan forbedres. Hva har vi fått til det nå? 
 Spelet er ferdig. Vi har laga eit spel som fungerer. 
 
+## Konsept
+
+Vi har laga ein platformer uten noko inspirasjon. Det er eit kart, der du skal klare å hoppe opp til ei prinsesse uten å dø. På vegen opp må ein passe seg for å ikkje dette ned frå mappen, missilar og spøkelse. Spelaren kan drepe spøkelse
+og øydelegge missilar ved å slå dei. Ein kan hoppe to gonger på rad så sant ein ikkje er borti ein slope. 
+
+## Beskrivelse av innholdet i spillet
+
+- Spelfigur som kan bevege seg todimensjonelt i alle retningar.
+
+- Todimensjonal verden:
+- - Vi ser inn på karakteren vår frå sida
+- - Eit område spelaren kan bevege seg innafor, avgrensa av veggar
+- - Laga i eit rutenett oppdelt i blokker
+- - Enkelte blokker vil ha ei innvirkning på spelaren si evne til å bevege seg (slopes)
+
+- Fiendar som beveger seg, følg og kan skade spelaren ved berøring
+
+- Projectiles som kan skade spelaren
+
+- Spelaren kan skade fiendar ved å slå dei med sverdet sitt
+
+- Spelaren kan falle ut av bana og dø
+
+- Spelaren vinn så sant han kjem seg til prinsessa
+
+- Spelet har ein start meny, der du kan:
+- - Starte eit nytt spel
+- - Avslutte spelet
+
+## Teknisk dokumentasjon
+
+Kodestrukturen er vist i klassediagrammet: Klassediagram.png
+
+
+
+Screens inneholder alle skjermene:
+
+    MainMenyScreen
+    InstuctionsScreen
+    CreditScreen
+    GameOverScreen
+    Shop
+    View
+
+View klassen er hovedskjermen til spillet. Det er her verdenen tegnes med spiller, fiender, prosjektiler og alle andre objekter. Vi har ikke klart å skille modellen og view helt fordi mange av klassene er avhengig av å ha et TiledMap og det var vanskelig å skille dem fullstendig fra hverandre i libGDX. Men vi har flyttet tegningen av map-et ut av map-klassene og til view slik at vi kan lage map og alle objektene som trenger map uten å måtte tegne map på skjermen. På den måten har vi kunnet teste mye mer av koden med JUnit tester.
+
+View henter inn MonsterInterface, PlayerInterface, AbstractGameObject, ProjectileInterface, MapInterface og ItemImpl som den bruker til å tegne objektene på skjermen. I view lager vi også MonsterFactories som lager fiendene (Monsters).
+
+AbstractGameObject inneholder alle feltvariablene og metodene som er felles for Monster, Player og Prosjectiles. I tillegg implementerer klassene et interface som beskriver hvordan implementasjonen deres. På den måten kan vi gi interfaces til view i stedet for klassene. Dette har gjort det veldig enkelt å legge til nye fiender og nye prosjektiler.
+
+MapInterface og ItemImpl beskriver henholdsvis hva et map og en item skal være. I spillet har vi bare en item: HealthPotion, men stukturen gjør det enkelt å legge til flere items senere hvis vi ønsker det.
+
+Controlleren tar imot inputs fra brukeren og sender det til SouthGame og View slik at vi kan oppdatere modellen.
 
 # Avsluttande rapport på prosjektet og refleksjonar
 
