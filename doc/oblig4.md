@@ -45,10 +45,10 @@ og øydelegge missilar ved å slå dei. Ein kan hoppe to gonger på rad så sant
 - Spelfigur som kan bevege seg todimensjonelt i alle retningar.
 
 - Todimensjonal verden:
-- - Vi ser inn på karakteren vår frå sida
-- - Eit område spelaren kan bevege seg innafor, avgrensa av veggar
-- - Laga i eit rutenett oppdelt i blokker
-- - Enkelte blokker vil ha ei innvirkning på spelaren si evne til å bevege seg (slopes)
+ - Vi ser inn på karakteren vår frå sida
+ - Eit område spelaren kan bevege seg innafor, avgrensa av veggar
+ - Laga i eit rutenett oppdelt i blokker
+ - Enkelte blokker vil ha ei innvirkning på spelaren si evne til å bevege seg (slopes)
 
 - Fiendar som beveger seg, følg og kan skade spelaren ved berøring
 
@@ -61,8 +61,8 @@ og øydelegge missilar ved å slå dei. Ein kan hoppe to gonger på rad så sant
 - Spelaren vinn så sant han kjem seg til prinsessa
 
 - Spelet har ein start meny, der du kan:
-- - Starte eit nytt spel
-- - Avslutte spelet
+ - Starte eit nytt spel
+ - Avslutte spelet
 
 ## Teknisk dokumentasjon
 
