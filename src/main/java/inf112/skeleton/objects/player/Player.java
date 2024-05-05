@@ -311,7 +311,7 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
-        if (velX != 0 && isOnContact && framesGrounded%60 == 0) {
+        if (velX != 0 && body.getLinearVelocity().y == 0 && isOnContact && framesGrounded%60 == 0) {
             soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
         } 
 
@@ -360,7 +360,7 @@ public class Player extends GameEntity {
     public void move() {
         // Check if the player is on a slope
         // Check if the slope angle is significant (not flat)
-        if (isOnSlope && !isOnContact) {                                            // && Math.abs(groundAngle) < 0.3f does not work as intended
+        if (isOnSlope && !isOnContact) {                                           
             // Calculate the direction of the slide force based on the slope angle
             Vector2 slideDirection = new Vector2((float) Math.sin(groundAngle), (float) Math.cos(groundAngle));
             // Apply the slide force to the player's body

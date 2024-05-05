@@ -155,7 +155,6 @@ public class MyContactListener implements ContactListener {
     public void endContact(Contact contact) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-
         /*
          * fixtureA.setUserData("ground");
          * fixtureB.setUserData("player");
@@ -167,23 +166,23 @@ public class MyContactListener implements ContactListener {
             if (fixtureA.getUserData().equals("ground") || fixtureB.getUserData().equals("ground")) {
                 isOnContact = false;
             }
-        }  
+          
 
             if (fixtureA.getUserData().equals("slope") || fixtureB.getUserData().equals("slope")) {
                 isOnSlope = false;
             }
+            }
 
-
-            testing(fixtureA, fixtureB, "weapon", "enemy", () -> {
-                // Handle button click event here
-                if(fixtureA.getUserData().equals("enemy")){
-                    enemyHurt = null;
-                }
-                if(fixtureB.getUserData().equals("enemy")){
-                    enemyHurt = null;
-                }
-            });
-        }
+        testing(fixtureA, fixtureB, "weapon", "enemy", () -> {
+            // Handle button click event here
+            if(fixtureA.getUserData().equals("enemy")){
+                enemyHurt = null;
+            }
+            if(fixtureB.getUserData().equals("enemy")){
+                enemyHurt = null;
+            }
+        });
+    }
     
 
     @Override
