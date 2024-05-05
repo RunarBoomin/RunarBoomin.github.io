@@ -6,16 +6,13 @@ import static inf112.skeleton.helper.Constants.width;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 public class MenuState extends State{
     Texture background;
     Texture title;
-    private OrthographicCamera camera;
 
     
     public MenuState(GameStateManager gsm) {
@@ -76,7 +73,6 @@ public class MenuState extends State{
         sb.end();
         //backgroundFrame();
         sb.begin();
-     Texture test = new Texture("images/frame3.png");
         
         // Render buttons
         int mouseX = Gdx.input.getX();

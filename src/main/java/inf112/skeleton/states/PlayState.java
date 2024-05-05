@@ -11,16 +11,15 @@ import com.badlogic.gdx.math.Vector2;
 
 
 import static inf112.skeleton.helper.Constants.PPM;
-import static inf112.skeleton.helper.Constants.width;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static inf112.skeleton.helper.Constants.height;
 
 
 
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -32,19 +31,25 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-
+import inf112.skeleton.helper.BodyHelperService;
+import inf112.skeleton.helper.FileFactory;
+import inf112.skeleton.helper.FileFactoryImpl;
 import inf112.skeleton.helper.MyContactListener;
 import inf112.skeleton.helper.TileMapHelper;
-import inf112.skeleton.objects.player.Enemy;
-import inf112.skeleton.objects.player.Enemy2;
 import inf112.skeleton.objects.player.GameEntity;
 import inf112.skeleton.objects.player.Player;
-import inf112.skeleton.objects.player.ShopKeeper;
 import inf112.skeleton.helper.SoundPlayer;
+import inf112.skeleton.helper.SoundPlayer.AudioSystemWrapper;
 
 
 
 public class PlayState extends State{
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    Random random = new Random();
+    FileFactory fileFactory = new FileFactoryImpl(); 
+    SoundPlayer soundPlayer = new SoundPlayer(audioSystemWrapper, random, fileFactory);
+
+    public static boolean enableRendering = true;
     
     private SpriteBatch batch;
     private World world;
@@ -52,6 +57,7 @@ public class PlayState extends State{
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
+    private BodyHelperService bodyHelperService;
 
     BitmapFont font;
     int fpsCounter;
@@ -65,7 +71,6 @@ public class PlayState extends State{
     // private Texture enemyTexture;
     private Texture heartTexture;
 
-    private List<ShopKeeper> shops;
     private boolean debug = false;
  
     List<GameEntity> enemies = new ArrayList<>();
@@ -76,9 +81,6 @@ public class PlayState extends State{
         this.world = new World(new Vector2(0,-5f), false);
         this.box2dDebugRenderer = new Box2DDebugRenderer();
         playerTexture = new Texture("images/background.jpg");
-      
-
-        this.shops = new ArrayList<>();
         
         createMap(filename);
         this.world.setContactListener(new MyContactListener(gsm));
@@ -90,7 +92,7 @@ public class PlayState extends State{
     } 
 
     public void createMap(String filename){
-        this.tileMapHelper = new TileMapHelper(this,filename);
+        this.tileMapHelper = new TileMapHelper(this,filename, PPM);
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
     }
 
@@ -122,7 +124,7 @@ public class PlayState extends State{
 
     public void playerOnScreen(){
         if((player.getBody().getPosition().y * PPM) < cam.position.y - (height/2) - 50){
-            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Fall");
+            soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Fall");
             gsm.push(new DeathState(gsm));
         }
         
@@ -220,17 +222,5 @@ public class PlayState extends State{
     public void handleInput() {
 
     }
-
-    public void addShop(ShopKeeper shopKeeper) {
-        shops.add(shopKeeper);
-    }
-
-    public List<ShopKeeper> getShops() {
-        return shops;
-    }
-
-    
-
-
 }
 

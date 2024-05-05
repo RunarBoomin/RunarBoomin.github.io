@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import inf112.skeleton.states.GameStateManager;
 import inf112.skeleton.states.MenuState;
+import inf112.skeleton.states.PlayState;
 
 public class GameScreen extends ScreenAdapter{
     private SpriteBatch batch;
@@ -27,15 +28,19 @@ public class GameScreen extends ScreenAdapter{
    
     @Override
     public void render(float delta){
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.graphics.setForegroundFPS(60);
-        Gdx.graphics.setVSync(true);
         
-
+        
+        if (PlayState.enableRendering) {
+            Gdx.gl.glClearColor(0,0,0,1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Gdx.graphics.setForegroundFPS(60);
+            Gdx.graphics.setVSync(true);
+            gameStateManager.render(batch);
+        }
         controller.handleInput(gameStateManager.getState());
 		gameStateManager.update(Gdx.graphics.getDeltaTime());
-        gameStateManager.render(batch);
+        
+        
         
     }
 }

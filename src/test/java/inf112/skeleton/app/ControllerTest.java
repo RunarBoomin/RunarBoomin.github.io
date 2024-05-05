@@ -12,18 +12,20 @@ import inf112.skeleton.states.MenuState;
 import inf112.skeleton.states.PauseState;
 import inf112.skeleton.states.PlayState;
 import inf112.skeleton.states.State;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ControllerTest {
     private GameStateManager gsm;
     private Controller controller;
     private Input mockInput;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         gsm = mock(GameStateManager.class);
         controller = new Controller(gsm);

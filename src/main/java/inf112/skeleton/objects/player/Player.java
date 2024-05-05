@@ -5,15 +5,13 @@ import static inf112.skeleton.helper.MyContactListener.groundAngle;
 import static inf112.skeleton.helper.MyContactListener.isOnContact;
 import static inf112.skeleton.helper.MyContactListener.isOnSlope;
 
-import org.w3c.dom.Text;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -23,10 +21,12 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import inf112.skeleton.helper.SoundPlayer;
+import inf112.skeleton.helper.SoundPlayer.AudioSystemWrapper;
 import inf112.skeleton.helper.BodyHelperService;
 import inf112.skeleton.states.DeathState;
 import inf112.skeleton.states.GameStateManager;
-import inf112.skeleton.helper.SoundPlayer;
+import inf112.skeleton.helper.FileFactory;
+import inf112.skeleton.helper.FileFactoryImpl;
 
 public class Player extends GameEntity {
     private Texture player0;
@@ -46,8 +46,6 @@ public class Player extends GameEntity {
    
     private float slideForceMagnitude = 1.0f;
     private int lifes = 3;
-    private long lastJumpTime = 0;
-    private static final long JUMP_COOLDOWN = 3000; // 3 seconds in milliseconds
 
     private World world;
 
@@ -59,27 +57,28 @@ public class Player extends GameEntity {
     private boolean attacking = false;
     private float attackSpeed = 1f;
 
-    private float mouseX;
-    private float mouseY;
-
-    private Texture test;
-
     private OrthographicCamera camera;
 
-    Vector3 worldCoordinates = new Vector3();
-    private Texture weaponTexture;
-    private long weaponOutStartTime = 0;
-    int countertest = 0;
+    private BodyHelperService bodyHelperService;
 
-    public Player(float width, float height, Body body, OrthographicCamera camera) {
+    Vector3 worldCoordinates = new Vector3();
+    private long weaponOutStartTime = 0;
+
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    Random random = new Random();
+    FileFactory fileFactory = new FileFactoryImpl(); 
+    SoundPlayer soundPlayer = new SoundPlayer(audioSystemWrapper, random, fileFactory);
+    
+
+    public Player(float width, float height, Body body, OrthographicCamera camera, BodyHelperService bodyHelperService) {
         super(width, height, body);
         this.speed = 5f;
         this.jumpCounter = 0;
-        test = new Texture("images/title.png");
         this.camera = camera;
         this.wallet = 100;
         this.maxJumps = 2;
         this.jumpForce = 10;
+        this.bodyHelperService = bodyHelperService;
     
         // Load the player texture
         player0 = new Texture("images/player0.png");
@@ -111,8 +110,6 @@ public class Player extends GameEntity {
         }
         
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            float mouseXx = Gdx.input.getX();
-            float mouseYy = Gdx.input.getY();
             worldCoordinates = camera.unproject(new Vector3(mouseX, mouseY, 0));
         }
 
@@ -163,7 +160,7 @@ public class Player extends GameEntity {
     public void attack(){
         if(!weaponOut){
             if(!attacking){
-                SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\SwordAttack");
+                soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\SwordAttack");
                 createWeapon();
                 attacking = true;
                 Timer.schedule(new Timer.Task() {
@@ -182,7 +179,7 @@ public class Player extends GameEntity {
     }
     private void checkLife(){
         if(lifes == 0){
-            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Death");
+            soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Death");
             gsm.push(new DeathState(gsm));
         }
     }
@@ -278,7 +275,7 @@ public class Player extends GameEntity {
         
         weaponOut = true;
         weaponOutStartTime = TimeUtils.nanoTime();
-        Body body = BodyHelperService.createBody(
+        Body body = bodyHelperService.createBody(
             this.x + 100* playerDirection,
             this.y, 
             30, 
@@ -315,11 +312,8 @@ public class Player extends GameEntity {
         this.world = world;
     }
     private void checkUserInput() {
-        
-        if (velX != 0 && isOnContact && framesGrounded%30 == 0 && framesGrounded>5) {
-            countertest ++;
-            System.out.println(countertest);
-            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
+        if (velX != 0 && isOnContact && framesGrounded%60 == 0) {
+            soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Step");
         } 
 
         if (isOnSlope && jumpCounter == 0) {
@@ -335,15 +329,6 @@ public class Player extends GameEntity {
                 }
             }
         }
-
-        if (!isOnContact && jumpCounter == 0) {
-            jumpCounter = 1;
-            framesGrounded = 0;
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < maxJumps){
-            float force = body.getMass() * jumpForce;
-        }
         
         if (Gdx.input.isKeyJustPressed(Input.Keys.W) && jumpCounter < 2) {
             float force = body.getMass() * 10;
@@ -351,7 +336,7 @@ public class Player extends GameEntity {
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             framesGrounded = 0;
             jumpCounter++;
-            SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Jump");
+            soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Misc\\Jump");
         }
         move();
     }
@@ -390,7 +375,7 @@ public class Player extends GameEntity {
 
     public void removeLife(){
         lifes -=1;
-        SoundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
+        soundPlayer.playRandomSound("src\\main\\resources\\Sounds\\Hero\\Damage");
         for (Fixture fixture : body.getFixtureList()) {
             fixture.setUserData("hurt");
         }

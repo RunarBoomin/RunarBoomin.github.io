@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import inf112.skeleton.helper.SoundPlayer;
 
 import inf112.skeleton.helper.BodyHelperService;
 
@@ -22,20 +21,21 @@ public class Enemy2 extends GameEntity {
     private boolean projectileAlive = false;
     private Body procBody;
     float bodyPosx;
-    private float bodyPosy;
     float maxRotationSpeed = 1f; // Adjust as needed
     private float playerPosy;
-    private float playerPosx;
+    private BodyHelperService bodyHelperService;
     
     private int playerdirection;
     private boolean transformExecuted;
-    public Enemy2(float width, float height, Body body, World world) {
+    public Enemy2(float width, float height, Body body, World world, BodyHelperService bodyHelperService) {
         super(width, height, body);
         this.world = world;
         this.speed = 3f;
+        this.bodyHelperService = bodyHelperService;
+
         body.setGravityScale(0);
         body.setType(BodyDef.BodyType.StaticBody);
-
+        
         projectileT = new Texture("images/projectile.png");
         enemy2T = new Texture("images/enemy2.png");
         for (Fixture fixture : body.getFixtureList()) {
@@ -92,7 +92,7 @@ public class Enemy2 extends GameEntity {
     }
     public void createProjectile(){
         projectileAlive = true;
-        Body body = BodyHelperService.createBody(
+        Body body = bodyHelperService.createBody(
             this.x + 50 * playerdirection,
             this.y, 
             30, 
@@ -138,7 +138,6 @@ public class Enemy2 extends GameEntity {
     }
     
 public void direction(float playerPosx, float playerPosy) {
-    this.playerPosx = playerPosx;
     this.playerPosy = playerPosy;
     if(x<=playerPosx){
         this.playerdirection = 1;
