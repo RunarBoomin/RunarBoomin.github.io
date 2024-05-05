@@ -30,8 +30,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
-import inf112.skeleton.helper.BodyHelperService;
 import inf112.skeleton.helper.FileFactory;
 import inf112.skeleton.helper.FileFactoryImpl;
 import inf112.skeleton.helper.MyContactListener;
@@ -57,13 +55,13 @@ public class PlayState extends State{
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
-    private BodyHelperService bodyHelperService;
+
 
     BitmapFont font;
     int fpsCounter;
     private String filename;
 
-    private Texture playerTexture;
+
 
     // game objects
     private Player player;
@@ -80,7 +78,7 @@ public class PlayState extends State{
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0,-5f), false);
         this.box2dDebugRenderer = new Box2DDebugRenderer();
-        playerTexture = new Texture("images/background.jpg");
+
         
         createMap(filename);
         this.world.setContactListener(new MyContactListener(gsm));

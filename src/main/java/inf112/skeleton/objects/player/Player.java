@@ -37,7 +37,6 @@ public class Player extends GameEntity {
     private boolean lastMovementLeft = false;
     private int jumpCounter;
     private int maxJumps;
-    private int jumpForce;
     private int framesGrounded;
     // private Texture playerTexture;
     private int wallet;
@@ -77,7 +76,6 @@ public class Player extends GameEntity {
         this.camera = camera;
         this.wallet = 100;
         this.maxJumps = 2;
-        this.jumpForce = 10;
         this.bodyHelperService = bodyHelperService;
     
         // Load the player texture

@@ -2,11 +2,6 @@ package inf112.skeleton.objects.player;
 
 import static inf112.skeleton.helper.Constants.PPM;
 import static inf112.skeleton.helper.MyContactListener.enemyHurt;
-import static inf112.skeleton.helper.MyContactListener.isOnContact;
-import static inf112.skeleton.helper.MyContactListener.projFixture;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -14,13 +9,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.skeleton.states.PlayState;
-
 public class Enemy extends GameEntity {
 
     private Texture enemyT;
-    private int jumpCounter;
-    private int framesGrounded;
     private long lastJumpTime = 0;
     private long lastHitTime = 0;
     private World world;
@@ -36,7 +27,6 @@ public class Enemy extends GameEntity {
     public Enemy(float width, float height, Body body, World world) {
         super(width, height, body);
         this.speed = 2f;
-        this.jumpCounter = 0;
         this.world = world;
         
         // Load the enemy texture
