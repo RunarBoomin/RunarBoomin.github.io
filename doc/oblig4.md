@@ -123,7 +123,7 @@ Dette kan vi nok ein gong klandre oss sjølve for. Vi satt ikkje opp testar unde
 ## Lærdom
 
 Dette faget har gitt innsikt i gleden og utfordingane med gruppeprosjekt, og sånn sett gitt verdifull erfaring. Vi har merka innvirkninga av dårleg kommunikasjon. Det er også tydeleg at gode arbeidsrutiner og ein klar retning er essensielt
-for eit prosjekt. 
+for eit prosjekt. Det å ha god kodestil er også ein god ide, for å ikkje ha det har tydlege konsekvensar seinare.
 
 ## Brukerhistorier, akseptansekriterier og arbeidsoppgaver til MVP
 
@@ -217,14 +217,6 @@ for eit prosjekt.
 	1. Vi må lage større baner med større utfordringar
 	2. Banene må teiknast inn
 
-**9. Som spelar ønsker eg å kunne bruke powerups**
-* Akseptansekriterier:
-	1. Spelaren må kunne få nye eigenskapar ved å gjere noko i spelet
-	
-
-* Arbeidsoppgaver:
-	1. Legge til objekt som vil endre variablar knytta til spelaren si oppleving av spelet
-
 # Krav og spesifikasjon
 
 1. Vise et spillebrett
@@ -251,6 +243,8 @@ Dette har vi ordna sidan sist:
 * Gjort koden meir lesbar
 * Lagt til testar
 * Fjerna unødvendig kode
+
+* Ideen med powerups og shop vart fjerna sidan den som hadde tatt på seg oppgåva aldri møtte opp
 
 ### Lisensar
 
