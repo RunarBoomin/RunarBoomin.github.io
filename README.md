@@ -16,4 +16,8 @@
 Lyden av å gå spelar av litt vel ofte til tider.
 
 ## Credits
-Snille menn
+
+Lyd av Runar
+Grafikk av Victor
+Meny av Marius
+
