@@ -62,7 +62,7 @@ public class TileMapHelper {
                 createGameEntity(rectangle, rectangleName, "player",1, 1);
                 createGameEntity(rectangle, rectangleName, "enemy",1f,1f);
                 createGameEntity(rectangle, rectangleName, "enemy2",1f,1f);
-                createGameEntity(rectangle, rectangleName, "keeper1", 1f, 1f);
+                createGameEntity(rectangle, rectangleName, "keeper", 1f, 1f);
                 createGameEntity(rectangle, rectangleName, "goal", 1f, 1f);
             }
             

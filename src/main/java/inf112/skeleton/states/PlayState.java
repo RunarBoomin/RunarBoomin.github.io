@@ -144,7 +144,7 @@ public class PlayState extends State{
         // enemy.render(batch);
         for (GameEntity enemy : enemies) {
                enemy.render(batch);
-           }
+        }
     
         if(debug){
             box2dDebugRenderer.render(world, cam.combined.scl(PPM));
@@ -166,8 +166,6 @@ public class PlayState extends State{
             
             gap+= heartTexture.getWidth()/4;
         }
-        
-        
     }
  
     
@@ -216,13 +214,7 @@ public class PlayState extends State{
         enemies.add(goal);
     }
 
-    // public void setEnemy(Enemy enemy){
-    //     this.enemy = enemy;
-    // }
 
-    // public Enemy getEnemy(){
-    //     return enemy;
-    // }
   
     
 

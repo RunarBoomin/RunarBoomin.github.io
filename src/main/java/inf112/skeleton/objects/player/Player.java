@@ -99,6 +99,7 @@ public class Player extends GameEntity {
     @Override
     public void update() {
  
+        
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
 
