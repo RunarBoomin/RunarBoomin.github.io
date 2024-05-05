@@ -230,8 +230,6 @@ for eit prosjekt. Det å ha god kodestil er også ein god ide, for å ikkje ha d
 9. Start-skjerm ved oppstart / game over
 
 ### Bugs
-* Footsteps spelar opp på kvarandre
-
 
 
 ### Hvordan styre karateren i spillet

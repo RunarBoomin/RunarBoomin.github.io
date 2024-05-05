@@ -9,11 +9,11 @@
 
 ## Kjøring
 * Kompileres med `mvn package`.
-* Kjøres med `java -jar target/Geir-Roger-1.0-SNAPSHOT-fat.jar`
+* Kjøres med `java -jar target/Platformer.jar`
 * Krever Java 21 eller senere
 
 ## Kjente feil
-Lyden av å gå spelar av litt vel ofte til tider.
+Ingen ;D
 
 ## Credits
 
