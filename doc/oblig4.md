@@ -250,3 +250,8 @@ Dette har vi ordna sidan sist:
 
 Lisensar ligg i license.md
 
+### Credits
+
+Lyd av Runar
+Grafikk av Victor
+Meny av Marius
